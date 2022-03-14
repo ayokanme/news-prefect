@@ -1,0 +1,5 @@
+# ESLint will ignore files in the directories listed
+
+node_modules
+dist
+coverage
