@@ -1,12 +1,24 @@
 import React from 'react';
-// import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 class App extends React.Component {
-  // constructor(props: any) {
-  //   super(props);
 
-  // }
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+
+    };
+
+  }
+
+  makeAPICall() {
+    // axios({
+    //   method: 'GET',
+    //   url: '/'
+    // });
+  }
 
   render () {
     return (

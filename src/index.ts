@@ -1,5 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
+
+import topStories from './helpers/external';
 
 const app = express();
 const port = 3333;
@@ -7,8 +9,17 @@ const port = 3333;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.get('/newroute', (req, res) => {
-  res.status(200).json('Hello ~TypeScript~ World!').end();
+app.get('/api/top-stories/:topic', (req: Request, res: Response) => {
+  const topic = req.params.topic;
+  topStories(topic)
+    .then((data) => {
+      console.log('the data returned is: ', data);
+      res.status(200).send(data).end();
+    })
+    .catch((error) => {
+      console.log('the error returned is: ', error);
+      res.status(400).json(error).end();
+    });
 });
 
 app.listen(port, () => {
