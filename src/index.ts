@@ -13,12 +13,15 @@ app.get('/api/top-stories/:topic', (req: Request, res: Response) => {
   const topic = req.params.topic;
   topStories(topic)
     .then((data) => {
-      console.log('the data returned is: ', data);
-      res.status(200).send(data).end();
+      res.status(200).json(data).end();
     })
     .catch((error) => {
-      console.log('the error returned is: ', error);
-      res.status(400).json(error).end();
+      res.status(error.response.status)
+        .json({
+          error: error.message,
+          message: error.response.data
+        })
+        .end();
     });
 });
 
