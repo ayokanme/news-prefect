@@ -21,7 +21,7 @@ class App extends React.Component <AppProps, AppState> {
   }
 
   getTopStories(topic: string) {
-    axios.get(`/api/top-stories/${topic}`)
+    axios.get(`/api/top-stories/${topic}`, { validateStatus: (status: number) => status === 200 })
       .then((success) => {
         this.setState({
           results: success.data,
