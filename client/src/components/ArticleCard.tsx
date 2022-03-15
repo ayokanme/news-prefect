@@ -14,17 +14,14 @@ class ArticleCard extends React.Component<ArticleCardProps> {
   }
 
   render () {
-    const { abstract, byline, published_date, section ,short_url, subsection, title, url } = this.props.article;
-    // const thumbnail = this.props.article.multimedia[2] || {url: '', caption: ''};
-    // const thumbnail = multimedia.find((image: ArticleMedia) => image.format === 'Large Thumbnail');
-    // const fullImage = multimedia.find((image: ArticleMedia) => image.format === 'Super Jumbo');
+    const { abstract, byline, multimedia, published_date, section ,short_url, subsection, title, url } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
 
     return (
       <div className="articleCard">
-        {/* <div className="articleCardImage" style={{ display: 'inline-block'}}>
-          <img src={thumbnail.url} className="articleThumbnail" alt={thumbnail.caption} />
-        </div> */}
+        <div className="articleCardImage" style={{ display: 'inline-block'}}>
+          <img src={multimedia[2].url} className="articleThumbnail" alt={multimedia[2].caption} />
+        </div>
         <div className="articleDetails" style={{ display: 'inline-block'}}>
           <span className="articleTitle">
             <a className="articleLink" href={url} target="_blank" rel="noopener noreferrer">
