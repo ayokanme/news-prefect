@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/api/top-stories/:topic', (req: Request, res: Response) => {
-  const topic = req.params.topic;
+  const topic :string = req.params.topic;
   topStories(topic)
     .then((data) => {
       res.status(200).json(data).end();

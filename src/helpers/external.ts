@@ -8,8 +8,8 @@ const options = {
   auth: process.env.NYT_API_KEY
 };
 
-const topStories = (topic: string) => {
-  return axios({
+const topStories = async (topic: string) => {
+  const success = await axios({
     method: 'get',
     url: `${options.baseUrl}/${topic}.json`,
     params: {
@@ -19,10 +19,9 @@ const topStories = (topic: string) => {
     validateStatus: (status) => {
       return status === 200;
     }
-  })
-    .then((success) => {
-      return success.data;
-    });
+  });
+
+  return success.data.results;
 };
 
 export default topStories;
