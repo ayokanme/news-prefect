@@ -2,10 +2,10 @@ import React from 'react';
 import { ArticleCardProps, ArticleMedia } from '../interfaces';
 
 import TimeAgo from 'timeago-react';
-import * as timeago from 'timeago.js';
-import en_US from 'timeago.js/lib/lang/en_US';
+// import * as timeago from 'timeago.js';
+// import en_US from 'timeago.js/lib/lang/en_US';
 
-timeago.register('en_US', en_US);
+// timeago.register('en_US', en_US);
 
 
 class ArticleCard extends React.Component<ArticleCardProps> {
@@ -30,7 +30,7 @@ class ArticleCard extends React.Component<ArticleCardProps> {
           </span>
           <span className="articleAuthor">
            {`${byline} (`}
-            <TimeAgo datetime={utcTime} locale="en_US" />
+            <TimeAgo datetime={utcTime} />
             {`)`}
           </span>
           <span className="articleAbstract">{`${abstract}..`}</span>
