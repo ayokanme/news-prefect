@@ -1,6 +1,6 @@
 import { ArticleObject } from '../client/src/interfaces';
 
-export interface User {
+export interface UserType {
   email: string;
   password: string;
   bookmarks: ArticleObject[];
