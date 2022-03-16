@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArticleCardProps } from '../interfaces';
+import { ArticleCardProps, ArticleCardState } from '../interfaces';
+import ImageModal from './ImageModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
 
@@ -11,10 +12,24 @@ import '@fontsource/roboto/700.css';
 import TimeAgo from 'timeago-react';
 
 
-class ArticleCard extends React.Component<ArticleCardProps> {
-  // constructor(props: ArticleCardProps) {
-  //   super(props);
-  // }
+class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
+  constructor(props: ArticleCardProps) {
+    super(props);
+    this.state = {
+      imageModalStatus: false,
+      shareModalStatus: false
+    }
+    this.imageModalHandler = this.imageModalHandler.bind(this);
+  }
+
+  imageModalHandler() {
+    const { imageModalStatus } = this.state;
+
+    this.setState({
+      imageModalStatus: !imageModalStatus
+    });
+
+  }
 
   render () {
     const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
@@ -48,9 +63,11 @@ class ArticleCard extends React.Component<ArticleCardProps> {
               component="img"
               sx={{ width: thumbnail.width }}
               image={thumbnail.url}
+              onClick={this.imageModalHandler}
               alt={thumbnail.caption}
             />
           </Tooltip>
+          <ImageModal photo={superJumbo} modalHandler={this.imageModalHandler} modalStatus={this.state.imageModalStatus} />
         </Box>
         <Tooltip title="Read on NYTimes.com">
           <Link href={url} underline="hover" variant="subtitle1" gutterBottom component="span" sx={{ gridArea: 'title', margin: 'auto', fontSize: 14, cursor: 'pointer' }}>
