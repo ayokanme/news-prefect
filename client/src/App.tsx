@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-
-import './App.css';
 import ArticleCard from './components/ArticleCard';
 import { AppProps, AppState } from './interfaces';
+import { Box, CircularProgress } from '@mui/material';
+
+import './App.css';
 
 
 class App extends React.Component <AppProps, AppState> {
@@ -61,7 +62,11 @@ class App extends React.Component <AppProps, AppState> {
         </div>
       );
     } else {
-      return 'loading...';
+      return (
+        <Box sx={{ position: 'fixed', left: '50%', top: '50%' }} aria-describedby="progress circle" aria-busy={false}>
+          <CircularProgress />
+        </Box>
+      );
     }
   }
 }

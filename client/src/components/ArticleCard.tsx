@@ -1,7 +1,7 @@
 import React from 'react';
+import { ArticleCardProps } from '../interfaces';
 import { Card, Box, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
-import { ArticleCardProps } from '../interfaces';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
