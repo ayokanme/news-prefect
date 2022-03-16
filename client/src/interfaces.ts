@@ -9,7 +9,6 @@ export interface ArticleMedia {
 
 export interface ArticleObject {
   section: string;
-  subsection: string;
   title: string;
   abstract: string;
   url: string;

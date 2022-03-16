@@ -1,11 +1,9 @@
 import React from 'react';
-import { ArticleCardProps, ArticleMedia } from '../interfaces';
+import { Card, Box, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
+import ShareIcon from '@mui/icons-material/Share';
+import { ArticleCardProps } from '../interfaces';
 
 import TimeAgo from 'timeago-react';
-// import * as timeago from 'timeago.js';
-// import en_US from 'timeago.js/lib/lang/en_US';
-
-// timeago.register('en_US', en_US);
 
 
 class ArticleCard extends React.Component<ArticleCardProps> {
@@ -14,29 +12,51 @@ class ArticleCard extends React.Component<ArticleCardProps> {
   }
 
   render () {
-    const { abstract, byline, multimedia, published_date, section ,short_url, subsection, title, url } = this.props.article;
+    const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
+    const thumbnail = multimedia[2];
+
 
     return (
-      <div className="articleCard">
-        <div className="articleCardImage" style={{ display: 'inline-block'}}>
-          <img src={multimedia[2].url} className="articleThumbnail" alt={multimedia[2].caption} />
-        </div>
-        <div className="articleDetails" style={{ display: 'inline-block'}}>
-          <span className="articleTitle">
-            <a className="articleLink" href={url} target="_blank" rel="noopener noreferrer">
+      <Card sx={{ display: 'block' }}>
+        <Tooltip title={thumbnail.caption} placement="bottom" arrow>
+          <CardMedia
+            component="img"
+            sx={{ display: 'inline-block', width: thumbnail.width }}
+            image={thumbnail.url}
+            alt={thumbnail.caption}
+          />
+        </Tooltip>
+        <Box sx={{ display: 'inline-block'}}>
+          <CardContent sx={{ display: 'block' }}>
+            <Link href={url} underline="hover">
               {title}
-            </a>
-          </span>
-          <span className="articleAuthor">
-           {`${byline} (`}
-            <TimeAgo datetime={utcTime} />
-            {`)`}
-          </span>
-          <span className="articleAbstract">{`${abstract}..`}</span>
-          <span className="articleTags">{`${section}, ${subsection}`}</span>
-        </div>
-      </div>
+            </Link>
+            <Typography>
+                {`${byline} (`}
+                <TimeAgo datetime={utcTime} />
+                {`)`}
+            </Typography>
+          </CardContent>
+          <Box sx={{ display: 'block'}}>
+            <CardContent sx={{ display: 'inline-block'}}>
+              <Typography>
+                {`${abstract}..`}
+              </Typography>
+              <Button variant="outlined">
+                {section}
+              </Button>
+            </CardContent>
+            <Box sx={{ display: 'inline-block'}}>
+              <Tooltip title="share" arrow>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Box>
+        </Box>
+      </Card>
     );
   }
 }
