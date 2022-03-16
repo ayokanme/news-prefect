@@ -33,7 +33,7 @@ const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
         />
         <CardContent sx={{ padding: '5px' }}>
           <Typography variant="body1" gutterBottom component="div" sx={{ fontSize: 14 }}>
-            { photo.caption !== '' ? photo.caption : '(no image caption available)' }
+            { photo.caption !== '' ? `Caption: ${photo.caption}` : '(no image caption available)' }
           </Typography>
         </CardContent>
       </Card>

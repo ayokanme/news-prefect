@@ -96,7 +96,15 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
           }
         </Box>
         <Tooltip title="Read on NYTimes.com">
-          <Link href={url} underline="hover" variant="subtitle1" gutterBottom component="span" sx={{ gridArea: 'title', margin: 'auto', fontSize: 14, cursor: 'pointer' }}>
+          <Link href={url}
+          underline="hover"
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="subtitle1"
+          gutterBottom
+          component="a"
+          sx={{ gridArea: 'title', margin: 'auto', fontSize: 14, cursor: 'pointer' }}
+          >
             {title}
           </Link>
         </Tooltip>
