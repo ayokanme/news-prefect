@@ -3,27 +3,28 @@ import { ArticleCardProps } from '../interfaces';
 import { Card, Box, CardContent, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+// import '@fontsource/roboto/300.css';
+// import '@fontsource/roboto/400.css';
+// import '@fontsource/roboto/500.css';
+// import '@fontsource/roboto/700.css';
 
 import TimeAgo from 'timeago-react';
 
 
 class ArticleCard extends React.Component<ArticleCardProps> {
-  constructor(props: ArticleCardProps) {
-    super(props);
-  }
+  // constructor(props: ArticleCardProps) {
+  //   super(props);
+  // }
 
   render () {
     const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
     const thumbnail = multimedia[2];
+    const superJumbo = multimedia[0];
 
 
     return (
-      <Card elevation={6} sx={{ display: 'block', width: 700, height: 150, margin: 1, backgroundColor: '#f5f5f5' }}>
+      <Card elevation={6} sx={{ display: 'block', width: 700, height: 150, margin: '10px auto', borderRadius: '10px', backgroundColor: '#f5f5f5' }}>
         <Box sx={{ display: 'inline-block' }}>
           <Tooltip title={thumbnail.caption} placement="bottom" arrow>
             <CardMedia
