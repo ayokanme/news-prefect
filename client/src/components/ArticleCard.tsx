@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArticleCardProps, ArticleCardState } from '../interfaces';
+import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces';
 import ImageModal from './ImageModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
@@ -28,15 +28,29 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
     this.setState({
       imageModalStatus: !imageModalStatus
     });
-
   }
 
   render () {
     const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
-    const thumbnail = multimedia[2];
-    const superJumbo = multimedia[0];
 
+    let noMultimedia = true;
+    let thumbnail: ArticleMedia;
+    let largeThumbnail: ArticleMedia;
+    if (multimedia) {
+      noMultimedia = false;
+      thumbnail = multimedia[2];
+      largeThumbnail = multimedia[1];
+    }
+
+    const noMultimediaPlaceholder: ArticleMedia = {
+      url: 'https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg',
+      format: '',
+      height: 150,
+      width: 150,
+      type: '',
+      caption: 'no image found'
+    };
 
     return (
       <Card
@@ -57,17 +71,29 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
           backgroundColor: '#f5f5f5'
         }}
       >
-        <Box sx={{ gridArea: 'thumbnail' }}>
-          <Tooltip title={thumbnail.caption} placement="bottom" arrow>
+        <Box sx={{ gridArea: 'thumbnail', cursor: 'pointer' }}>
+          { !noMultimedia
+            ?
+            <>
+              <Tooltip title={thumbnail!.caption} placement="bottom" arrow>
+                <CardMedia
+                  component="img"
+                  sx={{ width: thumbnail!.width }}
+                  image={thumbnail!.url}
+                  onClick={this.imageModalHandler}
+                  alt={thumbnail!.caption}
+                />
+              </Tooltip>
+              <ImageModal photo={largeThumbnail!} modalHandler={this.imageModalHandler} modalStatus={this.state.imageModalStatus} />
+            </>
+            :
             <CardMedia
               component="img"
-              sx={{ width: thumbnail.width }}
-              image={thumbnail.url}
-              onClick={this.imageModalHandler}
-              alt={thumbnail.caption}
+              sx={{ width: noMultimediaPlaceholder.width }}
+              image={noMultimediaPlaceholder.url}
+              alt={noMultimediaPlaceholder.caption}
             />
-          </Tooltip>
-          <ImageModal photo={superJumbo} modalHandler={this.imageModalHandler} modalStatus={this.state.imageModalStatus} />
+          }
         </Box>
         <Tooltip title="Read on NYTimes.com">
           <Link href={url} underline="hover" variant="subtitle1" gutterBottom component="span" sx={{ gridArea: 'title', margin: 'auto', fontSize: 14, cursor: 'pointer' }}>

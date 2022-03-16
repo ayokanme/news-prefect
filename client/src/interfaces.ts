@@ -1,6 +1,6 @@
 export interface ArticleMedia {
   url: string;
-  format: "Super Jumbo" | "threeByTwoSmallAt2X" | "Large Thumbnail";
+  format: string;
   height: number;
   width: number;
   type: string;
@@ -28,3 +28,14 @@ export interface ArticleCardProps {
 }
 
 export interface AppProps {}
+
+export interface ArticleCardState {
+  imageModalStatus: boolean;
+  shareModalStatus: boolean;
+}
+
+export interface ImageModalProps {
+  photo: ArticleMedia;
+  modalHandler: Function;
+  modalStatus: boolean;
+}

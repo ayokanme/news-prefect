@@ -1,26 +1,41 @@
 import React from 'react';
-import { Modal, Card, CardMedia, Typography } from '@mui/material';
+import { Modal, Card, CardMedia, Typography, CardContent } from '@mui/material';
 import { ImageModalProps } from '../interfaces';
 
 const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
 
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: photo.width,
+    height: photo.height + 80,
+    backgroundColor: '#30302f',
+    color: '#d6d6d2',
+    border: '1px solid #000',
+    outline: 'none'
+  };
+
   return (
     <Modal
       open={modalStatus}
-      onClose={() => modalHandler}
+      onClose={() => modalHandler()}
       aria-labelledby="article image modal"
       aria-describedby="article image and caption in modal view"
     >
-      <Card sx={{ maxWidth: photo.width }}>
+      <Card sx={style}>
         <CardMedia
           component="img"
           height={photo.height}
           image={photo.url}
-          alt="Super Jumbo image"
+          alt={photo.format}
         />
-          <Typography variant="body1" gutterBottom component="div" sx={{ fontSize: 12 }}>
-            {photo.caption}
+        <CardContent sx={{ padding: '5px' }}>
+          <Typography variant="body1" gutterBottom component="div" sx={{ fontSize: 14 }}>
+            { photo.caption !== '' ? photo.caption : '(no image caption available)' }
           </Typography>
+        </CardContent>
       </Card>
     </Modal>
   );
