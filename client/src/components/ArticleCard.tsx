@@ -3,6 +3,11 @@ import { Card, Box, CardContent, CardMedia, Typography, IconButton, Button, Tool
 import ShareIcon from '@mui/icons-material/Share';
 import { ArticleCardProps } from '../interfaces';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import TimeAgo from 'timeago-react';
 
 
@@ -18,37 +23,35 @@ class ArticleCard extends React.Component<ArticleCardProps> {
 
 
     return (
-      <Card sx={{ display: 'block' }}>
-        <Tooltip title={thumbnail.caption} placement="bottom" arrow>
-          <CardMedia
-            component="img"
-            sx={{ display: 'inline-block', width: thumbnail.width }}
-            image={thumbnail.url}
-            alt={thumbnail.caption}
-          />
-        </Tooltip>
-        <Box sx={{ display: 'inline-block'}}>
-          <CardContent sx={{ display: 'block' }}>
-            <Link href={url} underline="hover">
-              {title}
-            </Link>
-            <Typography>
-                {`${byline} (`}
-                <TimeAgo datetime={utcTime} />
-                {`)`}
+      <Card elevation={6} sx={{ display: 'block', maxWidth: 700, maxHeight: 150, margin: 1 }}>
+        <Box sx={{ display: 'inline-block' }}>
+          <Tooltip title={thumbnail.caption} placement="bottom" arrow>
+            <CardMedia
+              component="img"
+              sx={{ width: thumbnail.width }}
+              image={thumbnail.url}
+              alt={thumbnail.caption}
+            />
+          </Tooltip>
+        </Box>
+        <Box sx={{ display: 'inline-block', verticalAlign: 'top', maxWidth: 550 }}>
+          <CardContent sx={{ display: 'block', padding: 0 }}>
+            <Link href={url} underline="hover" variant="subtitle1" gutterBottom component="span" sx={{ cursor: 'pointer' }}>{title}</Link>
+            <Typography variant="subtitle2" gutterBottom component="div" sx={{ display: 'block', fontSize: 12 }}>
+              {`${byline} (`}<TimeAgo datetime={utcTime} />{`)`}
             </Typography>
           </CardContent>
-          <Box sx={{ display: 'block'}}>
-            <CardContent sx={{ display: 'inline-block'}}>
-              <Typography>
+          <Box sx={{ display: 'block', padding: 0 }}>
+            <CardContent sx={{ display: 'inline-block', maxWidth: 500, padding: 0 }}>
+              <Typography variant="body1" gutterBottom component="div" sx={{ fontSize: 12 }}>
                 {`${abstract}..`}
               </Typography>
-              <Button variant="outlined">
-                {section}
-              </Button>
+              <Tooltip title={`SEE MORE ${section.toUpperCase()} NEWS`} arrow>
+                <Button variant="outlined" sx={{ fontSize: 12 }}>{section}</Button>
+              </Tooltip>
             </CardContent>
-            <Box sx={{ display: 'inline-block'}}>
-              <Tooltip title="share" arrow>
+            <Box sx={{ display: 'inline-block', maxWidth: 50 }}>
+              <Tooltip title="share article" arrow>
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
