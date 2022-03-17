@@ -32,8 +32,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// <a className="App-link" href="https://developer.nytimes.com/" target="_blank" rel="noopener noreferrer">
-// Data Provided by NYTimes
-// </a>
-// <img src={"https://developer.nytimes.com/files/poweredby_nytimes_150a.png?v=1583354208339"} className="App-logo" alt="logo" />

@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import ArticleCard from './components/ArticleCard';
 import { AppProps, AppState } from './interfaces';
 import { Box, CircularProgress, Typography } from '@mui/material';
-
-import './App.css';
 
 
 class App extends React.Component <AppProps, AppState> {
@@ -43,7 +42,7 @@ class App extends React.Component <AppProps, AppState> {
       return (
         <div className="App" style={{ textAlign: 'center', height: '100%' }}>
           <Header />
-          <div className="AppBody" style={{ position: 'fixed', top: '10%', left: '0.5%', maxHeight: '90%', overflowY: 'scroll', width: '99%' }}>
+          <div className="AppBody" style={{ position: 'fixed', top: '10%', left: 0, maxHeight: '90%', overflowY: 'scroll', width: '100%' }}>
             <div className="article-list">
               {
                 results.map((articleData) => {
@@ -53,6 +52,7 @@ class App extends React.Component <AppProps, AppState> {
                 })
               }
             </div>
+            <Footer />
           </div>
         </div>
       );
