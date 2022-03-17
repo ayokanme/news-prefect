@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import Header from './components/Header';
 import ArticleCard from './components/ArticleCard';
 import { AppProps, AppState } from './interfaces';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import './App.css';
 
@@ -40,30 +41,39 @@ class App extends React.Component <AppProps, AppState> {
 
     if (initialized) {
       return (
-        <div className="App">
-          <header className="App-header">
-            <img src={"https://developer.nytimes.com/files/poweredby_nytimes_150a.png?v=1583354208339"} className="App-logo" alt="logo" />
-            <p>
-              Hello ~TypeScript~ World!<br></br>We're setting up the dev environment today, the first iteration will arrive tomorrow.<br></br>Stay tuned!
-            </p>
-            <a className="App-link" href="https://developer.nytimes.com/" target="_blank" rel="noopener noreferrer">
-              Data Provided by NYTimes
-            </a>
-          </header>
-          <div className="article-list">
-            {
-              results.map((articleData) => {
-                return (
-                  <ArticleCard article={articleData} />
-                )
-              })
-            }
+        <div className="App" style={{ textAlign: 'center', height: '100%' }}>
+          <Header />
+          <div className="AppBody" style={{ position: 'fixed', top: '10%', left: '0.5%', maxHeight: '90%', overflowY: 'scroll', width: '99%' }}>
+            <div className="article-list">
+              {
+                results.map((articleData) => {
+                  return (
+                    <ArticleCard article={articleData} />
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       );
     } else {
       return (
-        <Box sx={{ position: 'fixed', left: '50%', top: '50%' }} aria-describedby="progress circle" aria-busy={false}>
+        <Box
+          sx={{
+            position: 'absolute' as 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+          aria-describedby="progress circle"
+          aria-busy={true}
+        >
+          <Typography>
+            Please be patient while I fetch the news for you...
+          </Typography>
           <CircularProgress />
         </Box>
       );
