@@ -3,7 +3,7 @@ import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces'
 import ImageModal from './ImageModal';
 import ShareModal from './ShareModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
-import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
+import { Share, /* Bookmark, */ BookmarkBorder } from '@mui/icons-material';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
