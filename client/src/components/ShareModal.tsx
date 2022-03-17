@@ -17,7 +17,14 @@ class ShareModal extends React.Component <ShareModalProps, ShareModalState>{
     this.setState({
       copied: true,
       copyButtonText: 'copied'
-    })
+    });
+    setTimeout(
+      () => this.setState({
+        copied: false,
+        copyButtonText: 'copy'
+      }),
+      2000
+    );
   }
 
   render () {
