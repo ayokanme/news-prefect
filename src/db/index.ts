@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+// import Inc from 'mongoose-sequence';
 import { ArticleMedia, ArticleObject } from '../../client/src/interfaces';
 import { UserType } from '../interfaces';
+
 
 mongoose.connect('mongodb://127.0.0.1/news-prefect')
   .then(() => {
@@ -22,7 +24,6 @@ const multimediaSchema = new mongoose.Schema<ArticleMedia>({
 
 const bookmarkSchema = new mongoose.Schema<ArticleObject>({
   section: { type: String, required: true },
-  subsection: { type: String, required: true },
   title: { type: String, required: true },
   abstract: { type: String, required: true },
   url: { type: String, required: true },
@@ -33,9 +34,14 @@ const bookmarkSchema = new mongoose.Schema<ArticleObject>({
 });
 
 const userSchema = new mongoose.Schema<UserType>({
+  userId: { type: Number, required: true, unique: true },
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   bookmarks: { type: [ bookmarkSchema ], required: false }
 });
+
+// const AutoIncrement = Inc(userSchema);
+
 
 export const User = mongoose.model('User', userSchema);
