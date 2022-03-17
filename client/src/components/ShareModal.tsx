@@ -1,5 +1,5 @@
-import { Modal, Card, Typography, CardContent, TextField, Box, Button } from '@mui/material';
 import React from 'react';
+import { Modal, Card, Typography, CardContent, TextField, Button } from '@mui/material';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ShareModalProps, ShareModalState } from '../interfaces';
 
