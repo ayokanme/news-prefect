@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, Card, CardMedia, Typography, CardContent } from '@mui/material';
 import { ImageModalProps } from '../interfaces';
 
@@ -14,7 +13,7 @@ const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
     backgroundColor: '#30302f',
     color: '#d6d6d2',
     border: '1px solid #000',
-    outline: 'none'
+    outline: 0
   };
 
   return (

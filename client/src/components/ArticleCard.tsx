@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces';
 import ImageModal from './ImageModal';
+import ShareModal from './ShareModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
 
@@ -20,6 +21,8 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
       shareModalStatus: false
     }
     this.imageModalHandler = this.imageModalHandler.bind(this);
+    this.shareModalHandler = this.shareModalHandler.bind(this);
+
   }
 
   imageModalHandler() {
@@ -27,6 +30,14 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
 
     this.setState({
       imageModalStatus: !imageModalStatus
+    });
+  }
+
+  shareModalHandler() {
+    const { shareModalStatus } = this.state;
+
+    this.setState({
+      shareModalStatus: !shareModalStatus
     });
   }
 
@@ -124,11 +135,14 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
             <BookmarkBorder />
           </IconButton>
         </Tooltip>
-        <Tooltip title="share article" arrow>
-          <IconButton sx={{ gridArea: 'share' }} aria-label="share">
-            <Share />
-          </IconButton>
-        </Tooltip>
+        <Box sx={{ gridArea: 'share' }}>
+          <Tooltip title="share article" arrow>
+            <IconButton onClick={this.shareModalHandler} aria-label="share">
+              <Share />
+            </IconButton>
+          </Tooltip>
+          <ShareModal shareLink={short_url} modalHandler={this.shareModalHandler} modalStatus={this.state.shareModalStatus} />
+        </Box>
       </Card>
     );
   }

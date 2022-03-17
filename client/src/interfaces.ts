@@ -39,3 +39,14 @@ export interface ImageModalProps {
   modalHandler: Function;
   modalStatus: boolean;
 }
+
+export interface ShareModalProps {
+  shareLink: string;
+  modalHandler: Function;
+  modalStatus: boolean;
+}
+
+export interface ShareModalState {
+  copied: boolean;
+  copyButtonText: string;
+}
