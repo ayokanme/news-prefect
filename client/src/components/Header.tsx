@@ -21,7 +21,7 @@ const Header = () => {
       <Typography sx={{ gridArea: 'header', margin: 'auto', fontSize: 48, fontWeight: 700 }}>
         News Prefect
       </Typography>
-      <nav style={{ borderRadius: '10px 10px 0 0', backgroundColor: '#424854', gridArea: 'navBar', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+      <nav style={{ borderRadius: '20px 20px 0 0', backgroundColor: '#424854', gridArea: 'navBar', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
         <Link to="/" style={{ margin: 'auto', color: 'white' }}>Home</Link>
         <Link to="/sections" style={{ margin: 'auto', color: 'white' }}>Sections</Link>
         <Link to="/bookmarks" style={{ margin: 'auto', color: 'white' }}>My Bookmarks</Link>
