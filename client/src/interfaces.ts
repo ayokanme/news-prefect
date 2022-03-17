@@ -21,6 +21,7 @@ export interface ArticleObject {
 export interface AppState {
   results: ArticleObject[];
   initialized: boolean;
+  isDrawerOpen: boolean;
 }
 
 export interface ArticleCardProps {
@@ -49,4 +50,17 @@ export interface ShareModalProps {
 export interface ShareModalState {
   copied: boolean;
   copyButtonText: string;
+}
+
+export interface SectionsDrawerProps {
+  isOpen: boolean;
+  drawerToggler: Function;
+}
+
+export interface SectionsDrawerState {}
+
+export interface HeaderState {}
+
+export interface HeaderProps {
+  drawerToggler: Function;
 }

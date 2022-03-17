@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import ArticleCard from './components/ArticleCard';
 import { AppProps, AppState } from './interfaces';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import SectionsDrawer from './components/SectionsDrawer';
 
 
 class App extends React.Component <AppProps, AppState> {
@@ -12,9 +13,11 @@ class App extends React.Component <AppProps, AppState> {
     super(props);
     this.state = {
       initialized: false,
-      results: []
+      results: [],
+      isDrawerOpen: false
     };
     this.getTopStories = this.getTopStories.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
   componentDidMount() {
@@ -35,15 +38,23 @@ class App extends React.Component <AppProps, AppState> {
 
   }
 
+  toggleDrawer() {
+    const { isDrawerOpen } = this.state;
+    this.setState({
+      isDrawerOpen: !isDrawerOpen
+    });
+  }
+
+
   render () {
     const { results, initialized } = this.state;
 
     if (initialized) {
       return (
         <div className="App" style={{ textAlign: 'center', height: '100%' }}>
-          <Header />
+          <Header drawerToggler={this.toggleDrawer} />
           <div className="AppBody" style={{ position: 'fixed', top: '10%', left: 0, maxHeight: '90%', overflowY: 'scroll', width: '100%' }}>
-            <div className="article-list">
+            <div className="article-list" /* style={{ display: 'inline-bloc' }} */>
               {
                 results.map((articleData) => {
                   return (
@@ -52,6 +63,7 @@ class App extends React.Component <AppProps, AppState> {
                 })
               }
             </div>
+            <SectionsDrawer isOpen={this.state.isDrawerOpen} drawerToggler={this.toggleDrawer} />
             <Footer />
           </div>
         </div>
