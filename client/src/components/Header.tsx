@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { Typography, Link as MUILink } from '@mui/material';
 import React from 'react';
 import { HeaderProps, HeaderState } from '../interfaces';
 
@@ -14,6 +14,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   render() {
+    const linkStyle = { margin: 'auto', color: 'white', cursor: 'pointer' };
+
     return (
       <header className="App-header" style={{
         position: 'fixed',
@@ -33,10 +35,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           News Prefect
         </Typography>
         <nav style={{ borderRadius: '20px 20px 0 0', backgroundColor: '#424854', gridArea: 'navBar', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <Link to="/" style={{ margin: 'auto', color: 'white' }}>Home</Link>
-          <Link to="/sections" onClick={this.toggleDrawer} style={{ margin: 'auto', color: 'white' }}>Sections</Link>
-          <Link to="/bookmarks" style={{ margin: 'auto', color: 'white' }}>My Bookmarks</Link>
-          <Link to="/signout" style={{ margin: 'auto', color: 'white' }}>Logout</Link>
+          <MUILink underline="hover" sx={linkStyle}>Home</MUILink>
+          <MUILink underline="hover" onClick={this.toggleDrawer} sx={linkStyle}>Sections</MUILink>
+          <MUILink underline="hover" sx={linkStyle}>My Bookmarks</MUILink>
+          <MUILink underline="hover" style={linkStyle} component={RouterLink} to="/logout">Logout</MUILink>
         </nav>
       </header>
     );
