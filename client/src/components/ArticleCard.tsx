@@ -73,7 +73,7 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
           gridTemplateAreas: `"thumbnail title title"
           "thumbnail byline bookmark"
           "thumbnail abstract bookmark"
-          "thumbnail abstract share"
+          "thumbnail abstract ."
           "thumbnail section share"`,
           width: 700,
           height: 150,
