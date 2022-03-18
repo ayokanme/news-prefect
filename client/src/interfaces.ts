@@ -77,10 +77,18 @@ export interface AuthFormState {
   password: string;
 }
 
-export interface AppProps {}
+export interface AuthPageProps {
+  verifyUser: Function;
+}
 
-export interface AppState {
+export interface AuthPageState {
   newUser: boolean;
   user: boolean;
   error: string;
+}
+
+export interface AppProps {}
+
+export interface AppState {
+  accessGranted: boolean;
 }
