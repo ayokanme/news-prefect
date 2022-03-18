@@ -1,95 +1,71 @@
 import React from 'react';
-import axios from 'axios';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import ArticleCard from './components/ArticleCard';
-import { AppProps, AppState } from './interfaces';
-import { Box, CircularProgress, Typography } from '@mui/material';
-import SectionsDrawer from './components/SectionsDrawer';
+// import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+import { Box, Stack, Switch, Typography } from '@mui/material';
+import { AppProps, AppState, AuthFormState } from './interfaces';
+import AuthForm from './components/AuthForm';
 
 
-class App extends React.Component <AppProps, AppState> {
+class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      initialized: false,
-      results: [],
-      isDrawerOpen: false
+      newUser: false,
+      user: false,
+      error: ''
     };
-    this.getTopStories = this.getTopStories.bind(this);
-    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.handleSwitch = this.handleSwitch.bind(this);
   }
 
-  componentDidMount() {
-    this.getTopStories('home');
-  }
-
-  getTopStories(topic: string) {
-    axios.get(`/api/top-stories/${topic}`, { validateStatus: (status: number) => status === 200 })
-      .then((success) => {
-        this.setState({
-          results: success.data,
-          initialized: true
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-  }
-
-  toggleDrawer() {
-    const { isDrawerOpen } = this.state;
+  handleSwitch() {
+    const { newUser } = this.state;
     this.setState({
-      isDrawerOpen: !isDrawerOpen
+      newUser: !newUser
     });
   }
 
+  submitForm(data: AuthFormState) {
+    //temp auth method
+    console.log('the form data: ', data);
+    if (data.password === 'letMe1N!') {
+      this.setState({
+        user: true
+      });
+    }
+  }
 
-  render () {
-    const { results, initialized } = this.state;
-
-    if (initialized) {
-      return (
-        <div className="App" style={{ textAlign: 'center', height: '100%' }}>
-          <Header drawerToggler={this.toggleDrawer} />
-          <div className="AppBody" style={{ position: 'fixed', top: '10%', left: 0, maxHeight: '90%', overflowY: 'scroll', width: '100%' }}>
-            <div className="article-list" /* style={{ display: 'inline-bloc' }} */>
-              {
-                results.map((articleData) => {
-                  return (
-                    <ArticleCard article={articleData} />
-                  )
-                })
-              }
-            </div>
-            <SectionsDrawer isOpen={this.state.isDrawerOpen} drawerToggler={this.toggleDrawer} />
-            <Footer />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <Box
-          sx={{
+  render() {
+    const labelStyle = {
+      fontWeight: 700
+    };
+    return (
+      <div className="App" style={{ textAlign: 'center', height: '100%' }}>
+        <Box sx={{
             position: 'absolute' as 'absolute',
-            top: '50%',
+            top: '40%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
-          }}
-          aria-describedby="progress circle"
-          aria-busy={true}
-        >
-          <Typography>
-            Please be patient while I fetch the news for you...
-          </Typography>
-          <CircularProgress />
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            height: '60%',
+            width: 500
+          }}>
+          <Typography sx={{ margin: '70px 45px', fontSize: 64, fontWeight: 700, height: '20%' }}>News Prefect</Typography>
+          <Stack direction="column" spacing={2} alignItems="center" justifyContent="center">
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+              <Typography sx={labelStyle}>LOGIN</Typography>
+              <Switch checked={this.state.newUser} onChange={this.handleSwitch} inputProps={{ 'aria-label': 'login or signup form display switch' }}/>
+              <Typography sx={labelStyle}>SIGNUP</Typography>
+            </Stack>
+            <AuthForm registerUser={this.state.newUser} formHandler={this.submitForm} />
+          </Stack>
         </Box>
-      );
-    }
+        { this.state.user && <Navigate to="/home" replace={true} />}
+      </div>
+    );
   }
 }
 

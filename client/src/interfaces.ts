@@ -18,7 +18,9 @@ export interface ArticleObject {
   short_url: string;
 }
 
-export interface AppState {
+export interface HomeProps {}
+
+export interface HomeState {
   results: ArticleObject[];
   initialized: boolean;
   isDrawerOpen: boolean;
@@ -27,8 +29,6 @@ export interface AppState {
 export interface ArticleCardProps {
   article: ArticleObject;
 }
-
-export interface AppProps {}
 
 export interface ArticleCardState {
   imageModalStatus: boolean;
@@ -63,4 +63,24 @@ export interface HeaderState {}
 
 export interface HeaderProps {
   drawerToggler: Function;
+}
+
+export interface AuthFormProps {
+  registerUser: boolean;
+  formHandler: Function;
+}
+
+export interface AuthFormState {
+  passwordLongEnough: boolean;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface AppProps {}
+
+export interface AppState {
+  newUser: boolean;
+  user: boolean;
+  error: string;
 }
