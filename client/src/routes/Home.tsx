@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ArticleCard from '../components/ArticleCard';
+import ArticleList from '../components/ArticleList';
 import { HomeProps, HomeState } from '../interfaces';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import SectionsDrawer from '../components/SectionsDrawer';
+import { Routes, Route } from 'react-router-dom';
 
 
 class Home extends React.Component <HomeProps, HomeState> {
@@ -47,25 +46,17 @@ class Home extends React.Component <HomeProps, HomeState> {
 
 
   render () {
-    const { results, initialized } = this.state;
+    const { results, initialized, isDrawerOpen } = this.state;
 
     if (initialized) {
       return (
         <div className="App" style={{ textAlign: 'center', height: '100%' }}>
           <Header drawerToggler={this.toggleDrawer} />
-          <div className="AppBody" style={{ position: 'fixed', top: '10%', left: 0, maxHeight: '90%', overflowY: 'scroll', width: '100%' }}>
-            <div className="article-list" /* style={{ display: 'inline-bloc' }} */>
-              {
-                results.map((articleData) => {
-                  return (
-                    <ArticleCard article={articleData} />
-                  )
-                })
-              }
-            </div>
-            <SectionsDrawer isOpen={this.state.isDrawerOpen} drawerToggler={this.toggleDrawer} />
-            <Footer />
-          </div>
+          <Routes>
+            <Route path="home" element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
+            <Route path="bookmarks" element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
+            {/* add no match route here */}
+          </Routes>
         </div>
       );
     } else {
@@ -80,11 +71,11 @@ class Home extends React.Component <HomeProps, HomeState> {
             flexDirection: 'column',
             alignItems: 'center'
           }}
-          aria-describedby="progress circle"
+          aria-label="loading message and progress circle"
           aria-busy={true}
         >
           <Typography>
-            Welcome. Please be patient while I fetch the news for you...
+            Welcome. Please be patient while the app loads...
           </Typography>
           <CircularProgress />
         </Box>

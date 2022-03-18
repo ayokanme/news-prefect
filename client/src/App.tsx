@@ -21,10 +21,10 @@ class App extends React.Component<AppProps, AppState>{
 
   render() {
     return (
-      <div className="App">
+      <div className="Main">
         <Routes>
           <Route index element={<AuthPage verifyUser={this.authCheck}/>} />
-          <Route path="home" element={<Home />} />
+          <Route path="/*" element={<Home />} />
         </Routes>
       </div>
     );

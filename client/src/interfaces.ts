@@ -26,6 +26,16 @@ export interface HomeState {
   isDrawerOpen: boolean;
 }
 
+export interface ArticleListProps {
+  articles: ArticleObject[];
+  isOpen: boolean;
+  drawerToggler: Function;
+}
+
+export interface ArticleListState {
+  initialized: boolean;
+}
+
 export interface ArticleCardProps {
   article: ArticleObject;
 }
