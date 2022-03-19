@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-// import Inc from 'mongoose-sequence';
-import { ArticleMedia, ArticleObject } from '../../client/src/interfaces';
-import { UserType } from '../interfaces';
+import { ArticleMedia, ArticleObject } from '../client/src/interfaces';
+import { UserType } from './interfaces';
 
 
 mongoose.connect('mongodb://127.0.0.1/news-prefect')
@@ -27,21 +26,20 @@ const bookmarkSchema = new mongoose.Schema<ArticleObject>({
   title: { type: String, required: true },
   abstract: { type: String, required: true },
   url: { type: String, required: true },
+  uri: { type: String, required: true, unique: true },
   byline: { type: String, required: true },
   published_date: { type: String, required: true },
-  multimedia: { type: [ multimediaSchema ], required: true },
+  multimedia: { type: [ multimediaSchema ], required: false },
   short_url: { type: String, required: true }
 });
 
 const userSchema = new mongoose.Schema<UserType>({
-  userId: { type: Number, required: true, unique: true },
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  bookmarks: { type: [ bookmarkSchema ], required: false }
+  bookmarks: { type: [ bookmarkSchema ], required: false },
+  sessionId: { type: String, unique: true }
 });
-
-// const AutoIncrement = Inc(userSchema);
 
 
 export const User = mongoose.model('User', userSchema);

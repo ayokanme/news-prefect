@@ -33,14 +33,14 @@ const getTopStories = (req: Request, res: Response) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(error.response.status)
+      res.status(500)
         .json('server error')
         .end();
     });
 
 };
 
-const getNewswireSectionList = (res: Response) => {
+const getNewswireSectionList = (req: Request, res: Response) => {
 
   return axios.get(`${options.newswireBaseUrl}/section-list.json`, requestConfig)
     .then((success) => {
@@ -52,7 +52,7 @@ const getNewswireSectionList = (res: Response) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(error.response.status)
+      res.status(500)
         .json('server error')
         .end();
     });
@@ -72,7 +72,7 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(error.response.status)
+      res.status(500)
         .json('server error')
         .end();
     });
