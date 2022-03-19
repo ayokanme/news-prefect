@@ -30,7 +30,9 @@ const getTopStories = (req: Request, res: Response) => {
         .end();
     })
     .catch((error) => {
-      console.error(error.message, ' ', error.response.data);
+      console.error(error.message);
+      console.error(error.response.data);
+
       res.status(error.response.status)
         .json('server error')
         .end();
@@ -47,7 +49,9 @@ const getNewswireSectionList = (res: Response) => {
         .end();
     })
     .catch((error) => {
-      console.error(error.message, ' ', error.response.data);
+      console.error(error.message);
+      console.error(error.response.data);
+
       res.status(error.response.status)
         .json('server error')
         .end();
@@ -65,7 +69,9 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
         .end();
     })
     .catch((error) => {
-      console.error(error.message, ' ', error.response.data);
+      console.error(error.message);
+      console.error(error.response.data);
+
       res.status(error.response.status)
         .json('server error')
         .end();
