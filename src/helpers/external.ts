@@ -1,49 +1,76 @@
 import { Request, Response } from 'express';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const options = {
-  baseUrl: 'https://api.nytimes.com/svc/topstories/v2',
+  topStoriesBaseUrl: 'https://api.nytimes.com/svc/topstories/v2',
+  newswireBaseUrl: 'https://api.nytimes.com/svc/news/v3/content',
   auth: process.env.NYT_API_KEY
 };
 
-const getTopStories = async (req: Request, res: Response) => {
-  const topic = req.params.topic;
-
-  return axios.get(`${options.baseUrl}/${topic}.json`, {
-    params: { 'api-key': options.auth },
-    responseType: 'json',
-    validateStatus: (status) => status === 200
-  })
-    .then((success) => {
-      res.status(200).json(success.data.results).end();
-    })
-    .catch((error) => {
-      res.status(error.response.status)
-        .json({
-          error: error.message,
-          message: error.response.data
-        })
-        .end();
-    });
+const requestConfig: AxiosRequestConfig = {
+  params: { 'api-key': options.auth },
+  responseType: 'json',
+  validateStatus: (status) => status === 200
 };
 
-// const topStories = async (topic: string) => {
-//   const success = await axios({
-//     method: 'get',
-//     url: `${options.baseUrl}/${topic}.json`,
-//     params: {
-//       'api-key': options.auth
-//     },
-//     responseType: 'json',
-//     validateStatus: (status) => {
-//       return status === 200;
-//     }
-//   });
+// raise default result limit from 20 to 100 for newswire article requests
+const newswireRequestConfig: AxiosRequestConfig = JSON.parse(JSON.stringify(requestConfig));
+newswireRequestConfig.params.limit = 100;
 
-//   return success.data.results;
-// };
+const getTopStories = (req: Request, res: Response) => {
+  const topic = req.params.topic;
 
-export { getTopStories };
+  return axios.get(`${options.topStoriesBaseUrl}/${topic}.json`, requestConfig)
+    .then((success) => {
+      res.status(200)
+        .json(success.data.results)
+        .end();
+    })
+    .catch((error) => {
+      console.error(error.message, ' ', error.response.data);
+      res.status(error.response.status)
+        .json('server error')
+        .end();
+    });
+
+};
+
+const getNewswireSectionList = (res: Response) => {
+
+  return axios.get(`${options.newswireBaseUrl}/section-list.json`, requestConfig)
+    .then((success) => {
+      res.status(200)
+        .json(success.data.results)
+        .end();
+    })
+    .catch((error) => {
+      console.error(error.message, ' ', error.response.data);
+      res.status(error.response.status)
+        .json('server error')
+        .end();
+    });
+
+};
+
+const getNewswireSectionArticles = (req: Request, res: Response) => {
+  const section = req.params.section;
+
+  return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
+    .then((success) => {
+      res.status(200)
+        .json(success.data.results)
+        .end();
+    })
+    .catch((error) => {
+      console.error(error.message, ' ', error.response.data);
+      res.status(error.response.status)
+        .json('server error')
+        .end();
+    });
+
+};
+
+export { getTopStories, getNewswireSectionList, getNewswireSectionArticles };
