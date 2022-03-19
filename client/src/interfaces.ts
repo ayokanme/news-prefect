@@ -12,6 +12,7 @@ export interface ArticleObject {
   title: string;
   abstract: string;
   url: string;
+  uri: string;
   byline: string;
   published_date: string;
   multimedia: ArticleMedia[];
