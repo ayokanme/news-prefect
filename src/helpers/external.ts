@@ -17,25 +17,28 @@ const requestConfig: AxiosRequestConfig = {
 };
 
 // raise default result limit from 20 to 100 for newswire article requests
-const newswireRequestConfig: AxiosRequestConfig = JSON.parse(JSON.stringify(requestConfig));
-newswireRequestConfig.params.limit = 100;
+const newswireRequestConfig: AxiosRequestConfig = {
+  params: {
+    'limit': 100,
+    'api-key': options.auth
+  },
+  responseType: 'json',
+  validateStatus: (status) => status === 200
+};
+// newswireRequestConfig.params.limit = 100;
 
 const getTopStories = (req: Request, res: Response) => {
   const topic = req.params.topic;
 
   return axios.get(`${options.topStoriesBaseUrl}/${topic}.json`, requestConfig)
     .then((success) => {
-      res.status(200)
-        .json(success.data.results)
-        .end();
+      res.status(200).json(success.data.results);
     })
     .catch((error) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(500)
-        .json('server error')
-        .end();
+      res.status(500).json('server error');
     });
 
 };
@@ -44,37 +47,29 @@ const getNewswireSectionList = (req: Request, res: Response) => {
 
   return axios.get(`${options.newswireBaseUrl}/section-list.json`, requestConfig)
     .then((success) => {
-      res.status(200)
-        .json(success.data.results)
-        .end();
+      res.status(200).json(success.data.results);
     })
     .catch((error) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(500)
-        .json('server error')
-        .end();
+      res.status(500).json('server error');
     });
 
 };
 
 const getNewswireSectionArticles = (req: Request, res: Response) => {
-  const section = req.params.section;
+  const section = encodeURIComponent(req.params.section);
 
   return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
     .then((success) => {
-      res.status(200)
-        .json(success.data.results)
-        .end();
+      res.status(200).json(success.data.results);
     })
     .catch((error) => {
       console.error(error.message);
       console.error(error.response.data);
 
-      res.status(500)
-        .json('server error')
-        .end();
+      res.status(500).json('server error');
     });
 
 };
