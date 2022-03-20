@@ -134,7 +134,7 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
             {title}
           </Link>
         </Tooltip>
-        <Typography variant="subtitle2" gutterBottom component="div" sx={{ gridArea: 'byline', fontSize: 12 }}>
+        <Typography variant="subtitle2" gutterBottom component="div" sx={{ gridArea: 'byline', fontSize: 12, overflow: 'hidden' }}>
           {`${byline} (`}<TimeAgo datetime={utcTime} />{`)`}
         </Typography>
         <Typography variant="body1" gutterBottom component="div" sx={{ gridArea: 'abstract', overflowY: 'hidden', fontSize: 12 }}>
