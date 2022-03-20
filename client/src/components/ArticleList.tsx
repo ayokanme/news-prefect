@@ -8,17 +8,27 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 class ArticleList extends React.Component<ArticleListProps, ArticleListState> {
   constructor(props: ArticleListProps) {
     super(props);
+
+    const { articles } = this.props;
     this.state = {
       initialized: false,
+      articles: articles
     };
   }
 
   componentDidMount() {
     const { initialized } = this.state;
-
     this.setState({
       initialized: !initialized,
     });
+  }
+
+  componentDidUpdate(prevProps: ArticleListProps) {
+    if (this.props.articles !== prevProps.articles) {
+      this.setState({
+        articles: this.props.articles
+      });
+    }
   }
 
   getLoadingIndicator() {
@@ -50,7 +60,7 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState> {
       >
         <div className="ArticleList" style={{ minHeight: '80%'}}>
           {
-            this.props.articles.map((articleData) => {
+            this.state.articles.map((articleData) => {
               return (<ArticleCard article={articleData} />);
             })
           }

@@ -29,6 +29,14 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
     this.bookmarkHandler = this.bookmarkHandler.bind(this);
   }
 
+  componentDidUpdate(prevProps: ArticleCardProps) {
+    if (this.props.article.isBookmarked !== prevProps.article.isBookmarked) {
+      this.setState({
+        isBookmarked: this.props.article.isBookmarked
+      });
+    }
+  }
+
   imageModalHandler() {
     const { imageModalStatus } = this.state;
 
@@ -153,11 +161,9 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
         <Typography variant="body1" gutterBottom component="div" sx={{ gridArea: 'abstract', overflowY: 'hidden', fontSize: 12 }}>
           {`${abstract}`}
         </Typography>
-        <Tooltip title={`SEE MORE ${section.toUpperCase()} NEWS`} arrow>
-          <Button variant="outlined" sx={{ gridArea: 'section', fontSize: 12, margin: 'auto' }}>
-            {section}
-          </Button>
-        </Tooltip>
+        <Button variant="outlined" sx={{ gridArea: 'section', fontSize: 12, margin: 'auto' }}>
+          {section}
+        </Button>
         {
           this.state.isBookmarked
           ?

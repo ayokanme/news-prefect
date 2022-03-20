@@ -50,6 +50,7 @@ export interface ArticleListProps {
 
 export interface ArticleListState {
   initialized: boolean;
+  articles: ArticleObject[];
 }
 
 export interface ArticleCardProps {

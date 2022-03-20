@@ -34,9 +34,9 @@ class AuthForm extends React.Component<AuthFormProps, AuthFormState>{
   submitForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const { name, email, password } = this.state;
+    const { name, email, password, passwordLongEnough } = this.state;
 
-    if (this.props.registerUser) {
+    if (this.props.registerUser && passwordLongEnough) {
       this.props.formHandler({
         name: name,
         email: email,

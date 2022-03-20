@@ -68,6 +68,7 @@ class AccountDeleteModal extends React.Component<AccountDeleteProps, AccountDele
             value={this.state.password}
             onChange={this.handleChange}
             required
+            inputProps={{ 'aria-label': 'authorization form password field' }}
           />
           <Typography sx={{ color: 'red' }}>
             {this.state.error}
