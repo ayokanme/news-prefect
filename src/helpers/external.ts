@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import axios, { AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
-import { getBookmarks } from './bookmarks';
+import { getBookmarkUris } from './bookmarks';
 import { ArticleObject } from '../../client/src/interfaces';
 
 dotenv.config();
@@ -34,7 +34,7 @@ const getTopStories = (req: Request, res: Response) => {
   return axios.get(`${options.topStoriesBaseUrl}/${topic}.json`, requestConfig)
     .then(async (response) => {
 
-      const bookmarks = await getBookmarks(req.cookies.newsPrefect);
+      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
 
       const parsed = await response.data.results.map((article: ArticleObject) => {
 
@@ -78,7 +78,7 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
   return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
     .then(async (response) => {
 
-      const bookmarks = await getBookmarks(req.cookies.newsPrefect);
+      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
 
       const parsed = await response.data.results.map((article: ArticleObject) => {
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../db';
 
 
-const getBookmarks = (sessionId: string) => {
+const getBookmarkUris = (sessionId: string) => {
 
   return User.findOne({ 'sessionId': sessionId })
     .then((user) => {
@@ -22,12 +22,12 @@ const getBookmarks = (sessionId: string) => {
 
 const handleBookmark = (req: Request, res: Response) => {
   const sessionId = req.cookies.newsPrefect;
-  const { isBookmarked, uri } = req.body;
+  const { isBookmarked, uri, bookmarkObject } = req.body;
 
   if (isBookmarked) {
 
     User.findOneAndUpdate({ 'sessionId': sessionId },
-      { $pull: { 'bookmarks': uri }}
+      { $pull: { 'bookmarks': uri, 'bookmarkObjects': { 'uri': uri } }}
     )
       .then((user) => {
         if (user) {
@@ -42,7 +42,7 @@ const handleBookmark = (req: Request, res: Response) => {
   } else {
 
     User.findOneAndUpdate({ 'sessionId': sessionId },
-      { $push: { 'bookmarks': uri }}
+      { $push: { 'bookmarks': uri, 'bookmarkObjects': bookmarkObject }}
     )
       .then((user) => {
         if (user) {
@@ -61,4 +61,4 @@ const handleBookmark = (req: Request, res: Response) => {
 
 
 
-export { getBookmarks, handleBookmark };
+export { getBookmarkUris, handleBookmark };

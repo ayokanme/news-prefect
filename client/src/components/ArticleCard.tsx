@@ -45,13 +45,28 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
     });
   }
 
-  bookmarkHandler() {
+  async bookmarkHandler() {
     const { uri, isBookmarked } = this.state;
+    const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
+
+    const bookmarkObject = {
+      section,
+      title,
+      abstract,
+      url,
+      uri,
+      byline,
+      published_date,
+      multimedia,
+      short_url,
+      isBookmarked: !isBookmarked
+    };
+
     this.setState({
       isBookmarked: !isBookmarked
     });
 
-    axios.patch('/api/bookmarks', { uri, isBookmarked });
+    axios.patch('/api/bookmarks', { uri, isBookmarked, bookmarkObject });
   }
 
   render () {
