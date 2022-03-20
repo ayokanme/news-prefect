@@ -57,6 +57,8 @@ export interface ArticleCardProps {
 export interface ArticleCardState {
   imageModalStatus: boolean;
   shareModalStatus: boolean;
+  isBookmarked: boolean;
+  uri: string;
 }
 
 export interface ImageModalProps {

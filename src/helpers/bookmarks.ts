@@ -20,45 +20,42 @@ const getBookmarks = (sessionId: string) => {
 
 };
 
-const addBookmark = (req: Request, res: Response) => {
+const handleBookmark = (req: Request, res: Response) => {
+  const { newsPrefect } = req.cookies;
+  const { isBookmarked, uri } = req.body;
 
-  User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
-    { $push: { 'bookmarks': req.body.bookmark }}
-  )
-    .then((user) => {
-
-      if (user) {
-        res.status(201).end();
-      }
-
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
-
+  console.log('sessionId: ', newsPrefect, '; isBookmarked: ', isBookmarked, '; uri: ', uri);
 };
 
+// const addBookmark = () => {
 
-const deleteBookmark = (req: Request, res: Response) => {
+//   User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
+//     { $push: { 'bookmarks': req.body.bookmark }}
+//   )
+//     .then((user) => {
 
-  const { uri } = req.body;
+//     })
+//     .catch((err) => {
 
-  User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
-    { $pull: { 'bookmarks': { 'uri': { uri } }}}
-  )
-    .then((user) => {
+//     });
 
-      if (user) {
-        res.status(204).end();
-      }
-
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
-};
+// };
 
 
-export { addBookmark, getBookmarks, deleteBookmark };
+// const deleteBookmark = () => {
+
+
+//   User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
+//     { $pull: { 'bookmarks': { 'uri': { uri } }}}
+//   )
+//     .then((user) => {
+
+//     })
+//     .catch((err) => {
+//       console.error(err);
+
+//     });
+// };
+
+
+export { getBookmarks, handleBookmark };

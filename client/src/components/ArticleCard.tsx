@@ -11,18 +11,24 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import TimeAgo from 'timeago-react';
+import axios from 'axios';
+// import axios from 'axios';
 
 
 class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
   constructor(props: ArticleCardProps) {
     super(props);
+
+    const { isBookmarked, uri } = this.props.article;
     this.state = {
       imageModalStatus: false,
-      shareModalStatus: false
+      shareModalStatus: false,
+      isBookmarked: isBookmarked,
+      uri: uri
     }
     this.imageModalHandler = this.imageModalHandler.bind(this);
     this.shareModalHandler = this.shareModalHandler.bind(this);
-
+    this.bookmarkHandler = this.bookmarkHandler.bind(this);
   }
 
   imageModalHandler() {
@@ -41,8 +47,17 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
     });
   }
 
+  bookmarkHandler() {
+    const { uri, isBookmarked } = this.state;
+    this.setState({
+      isBookmarked: !isBookmarked
+    });
+
+    axios.patch('/api/bookmarks', { uri, isBookmarked });
+  }
+
   render () {
-    const { abstract, byline, multimedia, published_date, section, short_url, title, url, isBookmarked } = this.props.article;
+    const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
 
     let noMultimedia = true;
@@ -131,16 +146,16 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
           </Button>
         </Tooltip>
         {
-          isBookmarked
+          this.state.isBookmarked
           ?
           <Tooltip title="unbookmark article" arrow>
-            <IconButton sx={{ gridArea: 'bookmark' }} aria-label="unbookmark article">
-              <BookmarkBorder />
+            <IconButton onClick={this.bookmarkHandler} sx={{ gridArea: 'bookmark' }} aria-label="unbookmark article">
+              <Bookmark />
             </IconButton>
           </Tooltip>
           :
           <Tooltip title="bookmark article" arrow>
-            <IconButton sx={{ gridArea: 'bookmark' }} aria-label="bookmark article">
+            <IconButton onClick={this.bookmarkHandler} sx={{ gridArea: 'bookmark' }} aria-label="bookmark article">
               <BookmarkBorder />
             </IconButton>
           </Tooltip>
