@@ -24,18 +24,20 @@ class Home extends React.Component<HomeProps, HomeState>{
     this.getSectionList = this.getSectionList.bind(this);
     this.fetchSectionArticles = this.fetchSectionArticles.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.fetchBookmarks = this.fetchBookmarks.bind(this);
   }
 
   componentDidMount() {
     this.getTopStories();
+    this.fetchBookmarks();
     this.getSectionList();
   }
 
   getTopStories() {
     axios.get('/api/top-stories/home', { validateStatus: (status: number) => status === 200 })
-      .then((success) => {
+      .then((response) => {
         this.setState({
-          topStories: success.data,
+          topStories: response.data,
           initialized: true
         });
       })
@@ -45,11 +47,23 @@ class Home extends React.Component<HomeProps, HomeState>{
 
   }
 
+  fetchBookmarks() {
+    axios.get('/api/bookmarks', { validateStatus: (status: number) => status === 200 })
+      .then((response) => {
+        this.setState({
+          bookmarks: response.data
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   getSectionList() {
     axios.get('/api/newswire/section-list', { validateStatus: (status: number) => status === 200 })
-      .then((success) => {
+      .then((response) => {
         this.setState({
-          sectionList: success.data
+          sectionList: response.data
         });
       })
       .catch((error) => {
@@ -64,13 +78,14 @@ class Home extends React.Component<HomeProps, HomeState>{
     });
 
     axios.get(`/api/newswire/${section}/articles`, { validateStatus: (status: number) => status === 200 })
-      .then((success) => {
+      .then((response) => {
         this.setState({
-          sectionArticles: success.data,
+          sectionArticles: response.data,
           isArticleListLoading: false
         });
 
         this.getTopStories();
+        this.fetchBookmarks();
       })
       .catch((error) => {
         console.error(error);

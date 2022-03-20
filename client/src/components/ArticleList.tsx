@@ -51,7 +51,7 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState> {
         <div className="ArticleList" style={{ minHeight: '80%'}}>
           {
             this.props.articles.map((articleData) => {
-              return <ArticleCard article={articleData} />;
+              return (<ArticleCard article={articleData} />);
             })
           }
         </div>
