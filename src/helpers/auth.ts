@@ -119,20 +119,29 @@ const deleteAccount = (req: Request, res: Response) => {
       if (user) {
 
         bcrypt.compare(req.body.password, user.password)
-          .then(() => {
+          .then((validated) => {
 
-            User.findOneAndDelete({ 'sessionId': req.cookies.newsPrefect, 'password': user.password })
-              .then(() => {
-                res.clearCookie('newsPrefect').redirect('/');
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).json({ message: 'server error' });
-              });
+            if (validated) {
+
+              User.findOneAndDelete({ 'sessionId': req.cookies.newsPrefect, 'password': user.password })
+                .then(() => {
+                  res.clearCookie('newsPrefect').redirect('/');
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.status(500).json({ message: 'server error' });
+                });
+
+            } else {
+
+              res.status(403).json({ message: 'wrong password', wrongPassword: true });
+
+            }
 
           })
-          .catch(() => {
-            res.status(403).json({ message: 'wrong password', wrongPassword: true });
+          .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'server error' });
           });
 
       }
