@@ -1,5 +1,5 @@
 import { Modal, Card, CardMedia, Typography, CardContent } from '@mui/material';
-import { ImageModalProps } from '../interfaces';
+import { ImageModalProps } from '../../interfaces';
 
 const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
 

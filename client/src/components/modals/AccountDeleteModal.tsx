@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Modal, Card, Typography, TextField, Button } from '@mui/material';
-import { AccountDeleteProps, AccountDeleteState } from '../interfaces';
+import { AccountDeleteProps, AccountDeleteState } from '../../interfaces';
 
 
 class AccountDeleteModal extends React.Component<AccountDeleteProps, AccountDeleteState>{

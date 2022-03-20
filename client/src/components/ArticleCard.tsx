@@ -2,8 +2,8 @@ import React from 'react';
 import TimeAgo from 'timeago-react';
 import axios from 'axios';
 import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces';
-import ImageModal from './ImageModal';
-import ShareModal from './ShareModal';
+import ImageModal from './modals/ImageModal';
+import ShareModal from './modals/ShareModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
 import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
 

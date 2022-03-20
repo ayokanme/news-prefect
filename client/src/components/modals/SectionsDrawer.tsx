@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
-import { SectionsDrawerProps, SectionsDrawerState } from '../interfaces';
+import { SectionsDrawerProps, SectionsDrawerState } from '../../interfaces';
 
 class SectionsDrawer extends React.Component<SectionsDrawerProps, SectionsDrawerState>{
   constructor(props: SectionsDrawerProps) {

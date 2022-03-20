@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from './Footer';
 import ArticleCard from './ArticleCard';
-import SectionsDrawer from './SectionsDrawer';
+import SectionsDrawer from './modals/SectionsDrawer';
 import { ArticleListProps, ArticleListState } from '../interfaces';
 import { Box, CircularProgress, Typography } from '@mui/material';
 

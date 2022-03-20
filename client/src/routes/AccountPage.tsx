@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Divider, Stack } from '@mui/material';
 import axios from 'axios';
 import { AccountPageProps, AccountPageState } from '../interfaces';
-import AccountDeleteModal from '../components/AccountDeleteModal';
+import AccountDeleteModal from '../components/modals/AccountDeleteModal';
 
 class AccountPage extends React.Component<AccountPageProps, AccountPageState>{
   constructor(props: AccountPageProps) {

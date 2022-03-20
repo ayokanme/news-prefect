@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Card, Typography, CardContent, TextField, Button } from '@mui/material';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ShareModalProps, ShareModalState } from '../interfaces';
+import { ShareModalProps, ShareModalState } from '../../interfaces';
 
 class ShareModal extends React.Component <ShareModalProps, ShareModalState>{
   constructor(props: ShareModalProps) {
