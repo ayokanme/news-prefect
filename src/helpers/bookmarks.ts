@@ -2,6 +2,24 @@ import { Request, Response } from 'express';
 import { User } from '../db';
 
 
+const getBookmarks = (sessionId: string) => {
+
+  return User.findOne({ 'sessionId': sessionId })
+    .then((user) => {
+
+      if (user) {
+        return user.bookmarks;
+      } else {
+        return;
+      }
+
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+};
+
 const addBookmark = (req: Request, res: Response) => {
 
   User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
@@ -21,22 +39,6 @@ const addBookmark = (req: Request, res: Response) => {
 
 };
 
-const getBookmarks = (req: Request, res: Response) => {
-
-  User.findOne({ 'sessionId': req.cookies.newsPrefect })
-    .then((user) => {
-
-      if (user) {
-        res.status(200).json(user.bookmarks);
-      }
-
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
-
-};
 
 const deleteBookmark = (req: Request, res: Response) => {
 

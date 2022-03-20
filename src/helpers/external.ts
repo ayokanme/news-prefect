@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import axios, { AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
+import { getBookmarks } from './bookmarks';
+import { ArticleObject } from '../../client/src/interfaces';
 
 dotenv.config();
 
@@ -25,14 +27,26 @@ const newswireRequestConfig: AxiosRequestConfig = {
   responseType: 'json',
   validateStatus: (status) => status === 200
 };
-// newswireRequestConfig.params.limit = 100;
 
 const getTopStories = (req: Request, res: Response) => {
   const topic = req.params.topic;
 
   return axios.get(`${options.topStoriesBaseUrl}/${topic}.json`, requestConfig)
-    .then((success) => {
-      res.status(200).json(success.data.results);
+    .then(async (response) => {
+
+      const bookmarks = await getBookmarks(req.cookies.newsPrefect);
+
+      const parsed = await response.data.results.map((article: ArticleObject) => {
+
+        if (bookmarks?.includes(article.uri)) {
+          return {...article, isBookmarked: true };
+        } else {
+          return {...article, isBookmarked: false };
+        }
+
+      });
+
+      res.status(200).json(parsed);
     })
     .catch((error) => {
       console.error(error.message);
@@ -46,8 +60,8 @@ const getTopStories = (req: Request, res: Response) => {
 const getNewswireSectionList = (req: Request, res: Response) => {
 
   return axios.get(`${options.newswireBaseUrl}/section-list.json`, requestConfig)
-    .then((success) => {
-      res.status(200).json(success.data.results);
+    .then((response) => {
+      res.status(200).json(response.data.results);
     })
     .catch((error) => {
       console.error(error.message);
@@ -62,8 +76,8 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
   const section = encodeURIComponent(req.params.section);
 
   return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
-    .then((success) => {
-      res.status(200).json(success.data.results);
+    .then((response) => {
+      res.status(200).json(response.data.results);
     })
     .catch((error) => {
       console.error(error.message);

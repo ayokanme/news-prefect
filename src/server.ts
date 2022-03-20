@@ -4,7 +4,7 @@ import path from 'path';
 
 import { getNewswireSectionArticles, getNewswireSectionList, getTopStories } from './helpers/external';
 import { deleteAccount, login, logout, signup } from './helpers/auth';
-import { addBookmark, deleteBookmark, getBookmarks } from './helpers/bookmarks';
+import { addBookmark, deleteBookmark } from './helpers/bookmarks';
 
 const app = express();
 const port = 3333;
@@ -34,8 +34,6 @@ app.get('/api/newswire/:section/articles', getNewswireSectionArticles);
 
 // BOOKMARK CRUD ROUTES
 app.put('/api/bookmarks/add', addBookmark);
-
-app.get('/api/bookmarks/get', getBookmarks);
 
 app.delete('/api/bookmarks/delete', deleteBookmark);
 

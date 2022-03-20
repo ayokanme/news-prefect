@@ -3,7 +3,7 @@ import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces'
 import ImageModal from './ImageModal';
 import ShareModal from './ShareModal';
 import { Card, Box, CardMedia, Typography, IconButton, Button, Tooltip, Link } from '@mui/material';
-import { Share, /* Bookmark, */ BookmarkBorder } from '@mui/icons-material';
+import { Share, Bookmark, BookmarkBorder } from '@mui/icons-material';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -42,7 +42,7 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
   }
 
   render () {
-    const { abstract, byline, multimedia, published_date, section, short_url, title, url } = this.props.article;
+    const { abstract, byline, multimedia, published_date, section, short_url, title, url, isBookmarked } = this.props.article;
     const utcTime = new Date(published_date).toLocaleString();
 
     let noMultimedia = true;
@@ -130,11 +130,21 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
             {section}
           </Button>
         </Tooltip>
-        <Tooltip title="bookmark article" arrow>
-          <IconButton sx={{ gridArea: 'bookmark' }} aria-label="bookmark">
-            <BookmarkBorder />
-          </IconButton>
-        </Tooltip>
+        {
+          isBookmarked
+          ?
+          <Tooltip title="unbookmark article" arrow>
+            <IconButton sx={{ gridArea: 'bookmark' }} aria-label="unbookmark article">
+              <BookmarkBorder />
+            </IconButton>
+          </Tooltip>
+          :
+          <Tooltip title="bookmark article" arrow>
+            <IconButton sx={{ gridArea: 'bookmark' }} aria-label="bookmark article">
+              <BookmarkBorder />
+            </IconButton>
+          </Tooltip>
+        }
         <Box sx={{ gridArea: 'share' }}>
           <Tooltip title="share article" arrow>
             <IconButton onClick={this.shareModalHandler} aria-label="share">

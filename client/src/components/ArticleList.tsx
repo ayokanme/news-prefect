@@ -49,9 +49,11 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState> {
         style={{ position: 'fixed', top: '10%', left: 0, minHeight: '75%', maxHeight: '90%', overflowY: 'scroll', width: '100%' }}
       >
         <div className="ArticleList">
-          {this.props.articles.map((articleData) => {
-            return <ArticleCard article={articleData} />;
-          })}
+          {
+            this.props.articles.map((articleData) => {
+              return <ArticleCard article={articleData} />;
+            })
+          }
         </div>
         <SectionsDrawer
           isOpen={this.props.isOpen}

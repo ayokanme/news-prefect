@@ -17,6 +17,7 @@ export interface ArticleObject {
   published_date: string;
   multimedia: ArticleMedia[];
   short_url: string;
+  isBookmarked: boolean;
 }
 
 export interface HomeProps {}

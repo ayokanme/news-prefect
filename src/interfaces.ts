@@ -4,6 +4,7 @@ export interface UserType {
   name: string;
   email: string;
   password: string;
-  bookmarks: ArticleObject[];
+  bookmarks: string[];
   sessionId: string;
 }
+
