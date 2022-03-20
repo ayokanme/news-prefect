@@ -10,7 +10,7 @@ const getBookmarks = (sessionId: string) => {
       if (user) {
         return user.bookmarks;
       } else {
-        return;
+        return [];
       }
 
     })
@@ -21,41 +21,44 @@ const getBookmarks = (sessionId: string) => {
 };
 
 const handleBookmark = (req: Request, res: Response) => {
-  const { newsPrefect } = req.cookies;
+  const sessionId = req.cookies.newsPrefect;
   const { isBookmarked, uri } = req.body;
 
-  console.log('sessionId: ', newsPrefect, '; isBookmarked: ', isBookmarked, '; uri: ', uri);
+  if (isBookmarked) {
+
+    User.findOneAndUpdate({ 'sessionId': sessionId },
+      { $pull: { 'bookmarks': uri }}
+    )
+      .then((user) => {
+        if (user) {
+          res.status(201).end();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).end();
+      });
+
+  } else {
+
+    User.findOneAndUpdate({ 'sessionId': sessionId },
+      { $push: { 'bookmarks': uri }}
+    )
+      .then((user) => {
+        if (user) {
+          res.status(201).end();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).end();
+      });
+
+  }
+
 };
 
-// const addBookmark = () => {
 
-//   User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
-//     { $push: { 'bookmarks': req.body.bookmark }}
-//   )
-//     .then((user) => {
-
-//     })
-//     .catch((err) => {
-
-//     });
-
-// };
-
-
-// const deleteBookmark = () => {
-
-
-//   User.findOneAndUpdate({ 'sessionId': req.cookies.newsPrefect },
-//     { $pull: { 'bookmarks': { 'uri': { uri } }}}
-//   )
-//     .then((user) => {
-
-//     })
-//     .catch((err) => {
-//       console.error(err);
-
-//     });
-// };
 
 
 export { getBookmarks, handleBookmark };

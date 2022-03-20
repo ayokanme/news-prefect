@@ -76,8 +76,21 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
   const section = encodeURIComponent(req.params.section);
 
   return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
-    .then((response) => {
-      res.status(200).json(response.data.results);
+    .then(async (response) => {
+
+      const bookmarks = await getBookmarks(req.cookies.newsPrefect);
+
+      const parsed = await response.data.results.map((article: ArticleObject) => {
+
+        if (bookmarks?.includes(article.uri)) {
+          return {...article, isBookmarked: true };
+        } else {
+          return {...article, isBookmarked: false };
+        }
+
+      });
+
+      res.status(200).json(parsed);
     })
     .catch((error) => {
       console.error(error.message);
