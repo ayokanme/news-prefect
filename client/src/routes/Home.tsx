@@ -7,18 +7,21 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 
 
-class Home extends React.Component <HomeProps, HomeState> {
+class Home extends React.Component<HomeProps, HomeState>{
   constructor(props: HomeProps) {
     super(props);
     this.state = {
       initialized: false,
+      isArticleListLoading: false,
       topStories: [],
       sectionList: [],
+      sectionArticles: [],
       bookmarks: [],
       isDrawerOpen: false
     };
     this.getTopStories = this.getTopStories.bind(this);
     this.getSectionList = this.getSectionList.bind(this);
+    this.fetchSectionArticles = this.fetchSectionArticles.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
@@ -53,6 +56,25 @@ class Home extends React.Component <HomeProps, HomeState> {
       });
   }
 
+  fetchSectionArticles(section: string) {
+
+    this.setState({
+      isArticleListLoading: true
+    });
+
+    axios.get(`/api/newswire/${section}/articles`, { validateStatus: (status: number) => status === 200 })
+      .then((success) => {
+        this.setState({
+          sectionArticles: success.data,
+          isArticleListLoading: false
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }
+
   toggleDrawer() {
     const { isDrawerOpen } = this.state;
     this.setState({
@@ -62,16 +84,22 @@ class Home extends React.Component <HomeProps, HomeState> {
 
 
   render () {
-    const { topStories, sectionList, bookmarks, initialized, isDrawerOpen } = this.state;
+    const { topStories, sectionList, sectionArticles, bookmarks, initialized, isDrawerOpen } = this.state;
 
     if (initialized) {
       return (
         <div className="App" style={{ textAlign: 'center', height: '100%' }}>
           <Header drawerToggler={this.toggleDrawer} />
           <Routes>
-            <Route index element={<ArticleList articles={topStories} sections={sectionList} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
-            <Route path="bookmarks" element={<ArticleList articles={bookmarks} sections={sectionList} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
-            {/* add section routes here */}
+            <Route index element={<ArticleList articles={topStories} sections={sectionList} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} getSectionArticles={this.fetchSectionArticles} isLoading={this.state.isArticleListLoading} />} />
+            <Route path="bookmarks" element={<ArticleList articles={bookmarks} sections={sectionList} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} getSectionArticles={this.fetchSectionArticles} isLoading={this.state.isArticleListLoading} />} />
+            {
+              sectionList.map(sectionItem => {
+                return (
+                  <Route path={`sections/${encodeURIComponent(sectionItem.section)}`} element={<ArticleList articles={sectionArticles} sections={sectionList} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} getSectionArticles={this.fetchSectionArticles} isLoading={this.state.isArticleListLoading} />} />
+                );
+              })
+            }
             {/* add no match route here */}
           </Routes>
         </div>

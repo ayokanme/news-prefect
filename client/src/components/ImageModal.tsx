@@ -9,7 +9,7 @@ const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: photo.width,
-    height: photo.height + 80,
+    height: photo.height + 120,
     backgroundColor: '#30302f',
     color: '#d6d6d2',
     border: '1px solid #000',

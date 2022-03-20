@@ -3,9 +3,10 @@ import { Link, Typography } from '@mui/material';
 const Footer = () => {
 
   return (
-    <footer className="App-header" style={{
+    <footer className="App-footer" style={{
       position: 'relative',
       width: '100%',
+      minHeight: '15%',
       backgroundColor: '#424854',
       color: 'white'
     }}>

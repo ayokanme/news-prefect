@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { SectionsDrawerProps, SectionsDrawerState } from '../interfaces';
 
@@ -6,10 +7,16 @@ class SectionsDrawer extends React.Component<SectionsDrawerProps, SectionsDrawer
   constructor(props: SectionsDrawerProps) {
     super(props);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.fetchSectionArticles = this.fetchSectionArticles.bind(this);
   }
 
   toggleDrawer() {
     this.props.drawerToggler();
+  }
+
+  fetchSectionArticles(section: string) {
+    this.props.getSectionArticles(section);
+    this.toggleDrawer();
   }
 
   render() {
@@ -21,17 +28,17 @@ class SectionsDrawer extends React.Component<SectionsDrawerProps, SectionsDrawer
           open={this.props.isOpen}
           onClose={this.toggleDrawer}
         >
-          <Box
-            /* sx={{ width: '30%' }} */
-            // onClick={this.toggleDrawer}
-            // onKeyDown={this.toggleDrawer}
-            role="Right Side Navigation Bar"
-          >
+          <Box role="Right Side Navigation Bar">
             <List>
               {
                 this.props.sections.map(sectionItem => {
                   return (
-                    <ListItem button key={sectionItem.section}>
+                    <ListItem
+                      button
+                      key={sectionItem.section}
+                      onClick={() => this.fetchSectionArticles(sectionItem.section)}
+                      component={Link} to={`/sections/${encodeURIComponent(sectionItem.section)}`}
+                    >
                       <ListItemText primary={sectionItem.display_name} />
                     </ListItem>
                   );

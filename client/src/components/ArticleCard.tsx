@@ -46,12 +46,12 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
     const utcTime = new Date(published_date).toLocaleString();
 
     let noMultimedia = true;
-    let thumbnail: ArticleMedia;
-    let largeThumbnail: ArticleMedia;
+    let thumbnail: ArticleMedia | undefined;
+    let largeThumbnail: ArticleMedia | undefined;
     if (multimedia) {
       noMultimedia = false;
-      thumbnail = multimedia[2];
-      largeThumbnail = multimedia[1];
+      thumbnail = multimedia.find(image => (image.format === 'Large Thumbnail' || image.format === 'mediumThreeByTwo210') );
+      largeThumbnail = multimedia.find(image => (image.format === 'threeByTwoSmallAt2X' || image.format === 'mediumThreeByTwo440') );
     }
 
     const noMultimediaPlaceholder: ArticleMedia = {
@@ -89,7 +89,7 @@ class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {
               <Tooltip title={thumbnail!.caption} placement="bottom" arrow>
                 <CardMedia
                   component="img"
-                  sx={{ width: thumbnail!.width }}
+                  sx={{ width: 150, height: 150 }}
                   image={thumbnail!.url}
                   onClick={this.imageModalHandler}
                   alt={thumbnail!.caption}

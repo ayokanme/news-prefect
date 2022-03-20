@@ -29,15 +29,19 @@ interface sectionListItem {
 export interface HomeState {
   topStories: ArticleObject[];
   sectionList: sectionListItem[];
+  sectionArticles: ArticleObject[];
   bookmarks: ArticleObject[];
   initialized: boolean;
   isDrawerOpen: boolean;
+  isArticleListLoading: boolean;
 }
 
 export interface ArticleListProps {
   articles: ArticleObject[];
   sections: sectionListItem[];
   isOpen: boolean;
+  isLoading: boolean;
+  getSectionArticles: Function;
   drawerToggler: Function;
 }
 
@@ -75,6 +79,7 @@ export interface SectionsDrawerProps {
   isOpen: boolean;
   drawerToggler: Function;
   sections: sectionListItem[];
+  getSectionArticles: Function;
 }
 
 export interface SectionsDrawerState {}
