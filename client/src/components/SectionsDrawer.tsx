@@ -14,10 +14,8 @@ class SectionsDrawer extends React.Component<SectionsDrawerProps, SectionsDrawer
 
   render() {
 
-    const sections = [ "Admin", "Arts", "Automobiles", "Books", "Briefing", "Business", "Climate", "Corrections", "Crosswords & GamesCrosswords & Games", "Admin", "Arts", "Automobiles", "Books", "Briefing", "Business", "Climate", "Corrections", "Crosswords & Games" ];
-
     return (
-      <div /* style={{ display: 'inline-flex' }} */>
+      <div>
         <Drawer
           anchor="right"
           open={this.props.isOpen}
@@ -31,10 +29,10 @@ class SectionsDrawer extends React.Component<SectionsDrawerProps, SectionsDrawer
           >
             <List>
               {
-                sections.map(section => {
+                this.props.sections.map(sectionItem => {
                   return (
-                    <ListItem button key={section}>
-                      <ListItemText primary={section} />
+                    <ListItem button key={sectionItem.section}>
+                      <ListItemText primary={sectionItem.display_name} />
                     </ListItem>
                   );
                 })

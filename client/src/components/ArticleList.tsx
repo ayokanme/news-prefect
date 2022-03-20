@@ -21,7 +21,6 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState>{
     });
   }
 
-
   render () {
     const { initialized } = this.state;
 
@@ -37,7 +36,7 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState>{
               })
             }
           </div>
-          <SectionsDrawer isOpen={this.props.isOpen} drawerToggler={this.props.drawerToggler} />
+          <SectionsDrawer isOpen={this.props.isOpen} drawerToggler={this.props.drawerToggler} sections={this.props.sections}/>
           <Footer />
         </div>
       );

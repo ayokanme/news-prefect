@@ -21,14 +21,22 @@ export interface ArticleObject {
 
 export interface HomeProps {}
 
+interface sectionListItem {
+  section: string;
+  display_name: string;
+}
+
 export interface HomeState {
-  results: ArticleObject[];
+  topStories: ArticleObject[];
+  sectionList: sectionListItem[];
+  bookmarks: ArticleObject[];
   initialized: boolean;
   isDrawerOpen: boolean;
 }
 
 export interface ArticleListProps {
   articles: ArticleObject[];
+  sections: sectionListItem[];
   isOpen: boolean;
   drawerToggler: Function;
 }
@@ -66,6 +74,7 @@ export interface ShareModalState {
 export interface SectionsDrawerProps {
   isOpen: boolean;
   drawerToggler: Function;
+  sections: sectionListItem[];
 }
 
 export interface SectionsDrawerState {}
