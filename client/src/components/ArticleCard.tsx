@@ -1,4 +1,6 @@
 import React from 'react';
+import TimeAgo from 'timeago-react';
+import axios from 'axios';
 import { ArticleCardProps, ArticleCardState, ArticleMedia } from '../interfaces';
 import ImageModal from './ImageModal';
 import ShareModal from './ShareModal';
@@ -9,10 +11,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
-import TimeAgo from 'timeago-react';
-import axios from 'axios';
-// import axios from 'axios';
 
 
 class ArticleCard extends React.Component<ArticleCardProps, ArticleCardState> {

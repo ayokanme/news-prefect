@@ -5,6 +5,7 @@ import ArticleList from '../components/ArticleList';
 import { HomeProps, HomeState } from '../interfaces';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
+import AccountPage from './AccountPage';
 
 
 class Home extends React.Component<HomeProps, HomeState>{
@@ -26,12 +27,12 @@ class Home extends React.Component<HomeProps, HomeState>{
   }
 
   componentDidMount() {
-    this.getTopStories('home');
+    this.getTopStories();
     this.getSectionList();
   }
 
-  getTopStories(topic: string) {
-    axios.get(`/api/top-stories/${topic}`, { validateStatus: (status: number) => status === 200 })
+  getTopStories() {
+    axios.get('/api/top-stories/home', { validateStatus: (status: number) => status === 200 })
       .then((success) => {
         this.setState({
           topStories: success.data,
@@ -68,6 +69,8 @@ class Home extends React.Component<HomeProps, HomeState>{
           sectionArticles: success.data,
           isArticleListLoading: false
         });
+
+        this.getTopStories();
       })
       .catch((error) => {
         console.error(error);
@@ -100,7 +103,7 @@ class Home extends React.Component<HomeProps, HomeState>{
                 );
               })
             }
-            {/* add no match route here */}
+            <Route path="account" element={<AccountPage verifyUser={this.props.verifyUser}/>} />
           </Routes>
         </div>
       );

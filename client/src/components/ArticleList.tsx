@@ -46,9 +46,9 @@ class ArticleList extends React.Component<ArticleListProps, ArticleListState> {
     return (
       <div
         className="ArticlesPage"
-        style={{ position: 'fixed', top: '10%', left: 0, minHeight: '75%', maxHeight: '90%', overflowY: 'scroll', width: '100%' }}
+        style={{ position: 'fixed', top: '10%', left: 0, height: '90%', overflowY: 'scroll', width: '100%' }}
       >
-        <div className="ArticleList">
+        <div className="ArticleList" style={{ minHeight: '80%'}}>
           {
             this.props.articles.map((articleData) => {
               return <ArticleCard article={articleData} />;

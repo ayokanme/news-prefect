@@ -38,7 +38,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/">Home</MUILink>
           <MUILink underline="hover" sx={linkStyle} onClick={this.toggleDrawer}>Sections</MUILink>
           <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/bookmarks">My Bookmarks</MUILink>
-          <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/logout">Logout</MUILink>
+          <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/account">Account</MUILink>
         </nav>
       </header>
     );

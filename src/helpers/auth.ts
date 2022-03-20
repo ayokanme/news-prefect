@@ -134,7 +134,7 @@ const deleteAccount = (req: Request, res: Response) => {
 
             } else {
 
-              res.status(403).json({ message: 'wrong password', wrongPassword: true });
+              res.status(200).json({ message: 'wrong password', wrongPassword: true });
 
             }
 

@@ -22,7 +22,7 @@ app.get('/auth/logout', logout);
 
 
 // DELETE ACCOUNT
-app.delete('/delete-user-account', deleteAccount);
+app.post('/delete-user-account', deleteAccount);
 
 
 // EXTERNAL API ROUTES
