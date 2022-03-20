@@ -135,6 +135,7 @@ export interface AccountPageState {
 export interface AccountDeleteProps {
   modalHandler: Function;
   modalStatus: boolean;
+  verifyUser: Function;
 }
 
 export interface AccountDeleteState {

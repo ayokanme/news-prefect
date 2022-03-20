@@ -34,6 +34,8 @@ class AccountDeleteModal extends React.Component<AccountDeleteProps, AccountDele
         error: response.data.message,
         password: ''
       });
+    } else {
+      this.props.verifyUser();
     }
 
   }
@@ -65,6 +67,7 @@ class AccountDeleteModal extends React.Component<AccountDeleteProps, AccountDele
             label="password"
             value={this.state.password}
             onChange={this.handleChange}
+            required
           />
           <Typography sx={{ color: 'red' }}>
             {this.state.error}

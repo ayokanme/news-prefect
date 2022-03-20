@@ -48,7 +48,7 @@ class AccountPage extends React.Component<AccountPageProps, AccountPageState>{
             <Button onClick={this.logout} variant="contained">LOGOUT</Button>
             <Divider />
             <Button onClick={this.modalHandler} variant="outlined" color="error">DELETE ACCOUNT</Button>
-            <AccountDeleteModal modalHandler={this.modalHandler} modalStatus={this.state.modalStatus} />
+            <AccountDeleteModal modalHandler={this.modalHandler} modalStatus={this.state.modalStatus} verifyUser={this.props.verifyUser}/>
           </Stack>
         </Box>
       </div>
