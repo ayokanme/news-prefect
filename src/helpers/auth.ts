@@ -22,15 +22,17 @@ const signup = (req: Request, res: Response) => {
 
             User.findOneAndUpdate({ 'email': req.body.email },
               { $set: { 'sessionId': cookieString }}
-            );
-
-            res.status(200)
-              .cookie('newsPrefect', cookieString, {
-                expires: new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)),
-                httpOnly: true,
-                sameSite: true
+            )
+              .then(() => {
+                res.status(200)
+                  .cookie('newsPrefect', cookieString, { sameSite: true })
+                  .json({ message: 'user is logged in', loggedIn: true });
               })
-              .json({ message: 'user is logged in', loggedIn: true });
+              .catch((err) => {
+                console.error(err);
+                res.status(500).json({ message: 'server error' });
+              });
+
           })
           .catch((err) => {
             console.error(err);
@@ -38,7 +40,7 @@ const signup = (req: Request, res: Response) => {
           });
 
       } else {
-        res.status(300).json({ message: 'user exists', existingUser: true });
+        res.status(200).json({ message: 'an account with that email exists', existingUser: true });
       }
 
     })
@@ -54,27 +56,36 @@ const login = (req: Request, res: Response) => {
     .then(async (user) => {
 
       if (!user) {
-        res.status(400).json({ message: 'user does not exist', existingUser: false });
+        res.status(200).json({ message: 'user does not exist', noSuchUser: true });
       } else {
 
         bcrypt.compare(req.body.password, user.password)
-          .then(async () => {
-            const cookieString = await bcrypt.hash((user.id + Date.now().toString()), 8);
+          .then(async (validated) => {
 
-            User.findOneAndUpdate({ 'email': req.body.email },
-              { $set: { 'sessionId': cookieString }}
-            );
+            if (validated) {
+              const cookieString = await bcrypt.hash((user.id + Date.now().toString()), 8);
 
-            res.status(200)
-              .cookie('newsPrefect', cookieString, {
-                expires: new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)),
-                httpOnly: true,
-                sameSite: true
-              })
-              .json({ message: 'user is logged in', loggedIn: true });
+              User.findOneAndUpdate({ 'email': req.body.email },
+                { $set: { 'sessionId': cookieString }}
+              )
+                .then(() => {
+                  res.status(200)
+                    .cookie('newsPrefect', cookieString, { sameSite: true })
+                    .json({ message: 'user is logged in', loggedIn: true });
+                })
+                .catch((err) => {
+                  console.error(err);
+                  res.status(500).json({ message: 'server error' });
+                });
+
+            } else {
+              res.status(200).json({ message: 'wrong password', wrongPassword: true });
+            }
+
           })
-          .catch(() => {
-            res.status(403).json({ message: 'wrong password', wrongPassword: true });
+          .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'server error' });
           });
 
       }

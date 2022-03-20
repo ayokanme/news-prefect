@@ -94,12 +94,14 @@ export interface AuthPageProps {
 
 export interface AuthPageState {
   newUser: boolean;
-  user: boolean;
   error: string;
 }
 
-export interface AppProps {}
+export interface AppProps {
+  cookies: any;
+}
 
 export interface AppState {
+  // cookie: string;
   accessGranted: boolean;
 }

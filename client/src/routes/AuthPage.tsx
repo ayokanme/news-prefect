@@ -1,6 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import axios from 'axios';
 import { Box, Stack, Switch, Typography } from '@mui/material';
 import { AuthPageState, AuthPageProps, AuthFormState } from '../interfaces';
 import AuthForm from '../components/AuthForm';
@@ -11,8 +10,7 @@ class AuthPage extends React.Component<AuthPageProps, AuthPageState> {
     super(props);
     this.state = {
       newUser: false,
-      user: false,
-      error: ''
+      error: ' '
     };
     this.submitForm = this.submitForm.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
@@ -25,22 +23,53 @@ class AuthPage extends React.Component<AuthPageProps, AuthPageState> {
     });
   }
 
-  submitForm(data: AuthFormState) {
-    //temp auth method
-    if (data.password === 'letMe1N!') {
-      this.setState({
-        user: true
-      });
-      this.props.verifyUser(true);
+  async submitForm(data: AuthFormState) {
+    const { newUser } = this.state;
+
+    if (newUser) {
+      const response = await axios.post('/auth/signup', data);
+
+      if (response.data.loggedIn) {
+
+        this.props.verifyUser();
+
+      } else if (response.data.existingUser) {
+
+        this.handleSwitch();
+        this.setState({
+          error: response.data.message
+        });
+
+      }
     } else {
-      this.props.verifyUser(false);
+      const response = await axios.post('/auth/login', data);
+
+      if (response.data.loggedIn) {
+
+        this.props.verifyUser();
+
+      } else if (response.data.wrongPassword) {
+
+        this.setState({
+          error: response.data.message
+        });
+
+      } else if (response.data.noSuchUser) {
+
+        this.handleSwitch();
+        this.setState({
+          error: response.data.message
+        });
+
+      }
     }
+
   }
 
   render() {
-    const labelStyle = {
-      fontWeight: 700
-    };
+    const labelStyle = { fontWeight: 700 };
+    const { error } = this.state;
+
     return (
       <div className="Auth" style={{ textAlign: 'center', height: '100%' }}>
         <Box sx={{
@@ -62,10 +91,12 @@ class AuthPage extends React.Component<AuthPageProps, AuthPageState> {
               <Switch checked={this.state.newUser} onChange={this.handleSwitch} inputProps={{ 'aria-label': 'login or signup form display switch' }}/>
               <Typography sx={labelStyle}>SIGNUP</Typography>
             </Stack>
+            <Typography sx={{ color: 'red' }}>
+              {error}
+            </Typography>
             <AuthForm registerUser={this.state.newUser} formHandler={this.submitForm} />
           </Stack>
         </Box>
-        { this.state.user && <Navigate to="/home" replace={true} />}
       </div>
     );
   }

@@ -53,7 +53,7 @@ class Home extends React.Component <HomeProps, HomeState> {
         <div className="App" style={{ textAlign: 'center', height: '100%' }}>
           <Header drawerToggler={this.toggleDrawer} />
           <Routes>
-            <Route path="home" element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
+            <Route index element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
             <Route path="bookmarks" element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
             {/* add no match route here */}
           </Routes>

@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // AUTH ROUTES
 app.post('/auth/signup', signup);
 
-app.get('/auth/login', login);
+app.post('/auth/login', login);
 
 app.get('/auth/logout', logout);
 
@@ -33,11 +33,11 @@ app.get('/api/newswire/section-list', getNewswireSectionList);
 app.get('/api/newswire/:section/articles', getNewswireSectionArticles);
 
 // BOOKMARK CRUD ROUTES
-app.put('/add-bookmark', addBookmark);
+app.put('/api/bookmarks/add', addBookmark);
 
-app.get('/get-bookmarks', getBookmarks);
+app.get('/api/bookmarks/get', getBookmarks);
 
-app.delete('/delete-bookmark', deleteBookmark);
+app.delete('/api/bookmarks/delete', deleteBookmark);
 
 
 app.listen(port, () => {
