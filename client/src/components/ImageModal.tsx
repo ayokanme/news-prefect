@@ -20,8 +20,7 @@ const ImageModal = ({ photo, modalHandler, modalStatus }: ImageModalProps) => {
     <Modal
       open={modalStatus}
       onClose={() => modalHandler()}
-      aria-labelledby="article image modal"
-      aria-describedby="article image and caption in modal view"
+      aria-label="article image modal with caption"
     >
       <Card sx={style}>
         <CardMedia

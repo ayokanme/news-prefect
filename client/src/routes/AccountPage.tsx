@@ -7,18 +7,26 @@ import AccountDeleteModal from '../components/AccountDeleteModal';
 class AccountPage extends React.Component<AccountPageProps, AccountPageState>{
   constructor(props: AccountPageProps) {
     super(props);
+    this.state = {
+      modalStatus: false
+    };
     this.logout = this.logout.bind(this);
+    this.modalHandler = this.modalHandler.bind(this);
   }
 
   logout () {
     axios.get('/auth/logout')
       .then(() => {
         this.props.verifyUser();
-      })
+      });
   }
 
   modalHandler () {
-    //do next
+    const { modalStatus } = this.state;
+
+    this.setState({
+      modalStatus: !modalStatus
+    });
   }
 
   render() {
@@ -40,6 +48,7 @@ class AccountPage extends React.Component<AccountPageProps, AccountPageState>{
             <Button onClick={this.logout} variant="contained">LOGOUT</Button>
             <Divider />
             <Button onClick={this.modalHandler} variant="outlined" color="error">DELETE ACCOUNT</Button>
+            <AccountDeleteModal modalHandler={this.modalHandler} modalStatus={this.state.modalStatus} />
           </Stack>
         </Box>
       </div>

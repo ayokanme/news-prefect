@@ -20,7 +20,9 @@ export interface ArticleObject {
   isBookmarked: boolean;
 }
 
-export interface HomeProps {}
+export interface HomeProps {
+  verifyUser: Function;
+}
 
 interface sectionListItem {
   section: string;
@@ -120,4 +122,22 @@ export interface AppProps {
 
 export interface AppState {
   accessGranted: boolean;
+}
+
+export interface AccountPageProps {
+  verifyUser: Function;
+}
+
+export interface AccountPageState {
+  modalStatus: boolean;
+}
+
+export interface AccountDeleteProps {
+  modalHandler: Function;
+  modalStatus: boolean;
+}
+
+export interface AccountDeleteState {
+  error: string;
+  password: string;
 }

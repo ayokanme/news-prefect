@@ -54,8 +54,7 @@ class ShareModal extends React.Component <ShareModalProps, ShareModalState>{
       <Modal
         open={modalStatus}
         onClose={() => modalHandler()}
-        aria-labelledby="share article modal"
-        aria-describedby="shortened article link in read-only input box"
+        aria-label="share article modal with article link in text box"
       >
         <Card sx={style}>
           <CardContent sx={{ margin: 'auto', gridArea: 'title' }}>

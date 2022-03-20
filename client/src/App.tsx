@@ -32,6 +32,10 @@ class App extends React.Component<AppProps, AppState>{
       this.setState({
         accessGranted: true
       });
+    } else {
+      this.setState({
+        accessGranted: false
+      });
     }
 
   }
@@ -44,7 +48,7 @@ class App extends React.Component<AppProps, AppState>{
           ?
           <AuthPage verifyUser={this.authCheck}/>
           :
-          <Home />
+          <Home verifyUser={this.authCheck}/>
         }
       </div>
     );
