@@ -35,7 +35,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           News Prefect
         </Typography>
         <nav style={{ borderRadius: '20px 20px 0 0', backgroundColor: '#424854', gridArea: 'navBar', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/home">Home</MUILink>
+          <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/">Home</MUILink>
           <MUILink underline="hover" sx={linkStyle} onClick={this.toggleDrawer}>Sections</MUILink>
           <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/bookmarks">My Bookmarks</MUILink>
           <MUILink underline="hover" sx={linkStyle} component={RouterLink} to="/logout">Logout</MUILink>

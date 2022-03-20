@@ -55,6 +55,7 @@ class Home extends React.Component <HomeProps, HomeState> {
           <Routes>
             <Route index element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
             <Route path="bookmarks" element={<ArticleList articles={results} isOpen={isDrawerOpen} drawerToggler={this.toggleDrawer} />}></Route>
+            {/* add section routes here */}
             {/* add no match route here */}
           </Routes>
         </div>

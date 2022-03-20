@@ -102,6 +102,5 @@ export interface AppProps {
 }
 
 export interface AppState {
-  // cookie: string;
   accessGranted: boolean;
 }

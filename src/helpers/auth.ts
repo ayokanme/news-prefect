@@ -103,7 +103,7 @@ const logout = (req: Request, res: Response) => {
     { $unset: { 'sessionId': '' }}
   )
     .then(() => {
-      res.clearCookie('newsPrefect').redirect('/auth/login');
+      res.clearCookie('newsPrefect').redirect('/');
     })
     .catch((err) => {
       console.error(err);
@@ -123,7 +123,7 @@ const deleteAccount = (req: Request, res: Response) => {
 
             User.findOneAndDelete({ 'sessionId': req.cookies.newsPrefect, 'password': user.password })
               .then(() => {
-                res.clearCookie('newsPrefect').redirect('/auth/login');
+                res.clearCookie('newsPrefect').redirect('/');
               })
               .catch((err) => {
                 console.error(err);
