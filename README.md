@@ -1,4 +1,18 @@
 # News Prefect
+
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![React-Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![MaterialUI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
+![Bcrypt.js](https://img.shields.io/badge/Bcrypt.js-2.4.3-green)
+![Axios](https://axios-http.com/assets/logo.svg)
+![Axios](https://img.shields.io/badge/axios--http-0.26.1-green)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![NYTimes-for-Devs](https://developer.nytimes.com/files/poweredby_nytimes_150c.png?v=1583354208341)
+
 Stay in the know (powered by the NYTimes Top Stories and Newswire APIs)
 
 ## Framework
@@ -17,7 +31,7 @@ The frontend of this application was built with React.js. React Router was used 
 - The user is able to display a large version of the article thumbnail in a modal window
 - The user is able to display and copy (via button click), the short link to the article they are viewing if it is available
 - The user is able to log out of their account and prevent access to their bookmarked articles
-- The user is able to delete their account and all their bookmarked articles
+- The user is able to delete their account and all their bookmarked articles after authentication through a password modal form
 
 ## Backend Service
 
