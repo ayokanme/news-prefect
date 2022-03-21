@@ -12,6 +12,10 @@
 ![Bcrypt.js](https://img.shields.io/badge/Bcrypt.js-2.4.3-green)
 ![Axios](https://img.shields.io/badge/axios--http-0.26.1-green)
 
+<p>
+  <img src="photos/Demo.gif">
+</p>
+
 Stay in the know (powered by the NYTimes Top Stories and Newswire APIs)
 
 ## Framework
@@ -56,7 +60,7 @@ The frontend of this application was built with React.js. React Router was used 
 
 ## Material UI components
 
-- Links, Card, Drawer, Modal, Box, TextField, Button, Switch
+- Links, Card, Drawer, Modal, Box, TextField, Button, Switch, Tooltip
 
 ## Reusable Components
 
