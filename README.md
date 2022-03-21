@@ -7,11 +7,10 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![React-Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![MaterialUI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
-![Bcrypt.js](https://img.shields.io/badge/Bcrypt.js-2.4.3-green)
-![Axios](https://axios-http.com/assets/logo.svg)
-![Axios](https://img.shields.io/badge/axios--http-0.26.1-green)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
 ![NYTimes-for-Devs](https://developer.nytimes.com/files/poweredby_nytimes_150c.png?v=1583354208341)
+![Bcrypt.js](https://img.shields.io/badge/Bcrypt.js-2.4.3-green)
+![Axios](https://img.shields.io/badge/axios--http-0.26.1-green)
 
 Stay in the know (powered by the NYTimes Top Stories and Newswire APIs)
 
