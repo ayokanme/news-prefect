@@ -50,7 +50,7 @@ The frontend of this application was built with React.js. React Router was used 
 
 - The backend model can be found in the src/ directory. The server and database helpers that control it are in the src/helpers directory
 
-- The View Models are in the client/src/component directory
+- The View Models are in the client/src/components directory
 
 - The Views are controlled by the routes in the client/src/routes directory
 
@@ -68,18 +68,20 @@ The frontend of this application was built with React.js. React Router was used 
 
 - The ArticleCard component is used by the Article List to render the title (link), byline, abstract, thumbnail, bookmark, and share buttons.
 
-- The AuthForm component is used to collect data for both the login and sign up flows
+- The AuthForm component is used to collect data for both the login and sign up flows.
 
 ## Installation Instructions
 
-- signup for a developer account at developer.nytimes.com
+- Signup for a developer account at `developer.nytimes.com` and register an app to get an API key
 
-- change the `example.env` file to `.env` and past the API key in the field provided
+- Clone this repository from your local machine's terminal using `git clone https://github.com/ayokanme/news-prefect.git`
 
-- install dependencies in each of the root and client directories using `npm install`
+- Navigate to the project's root directory and change the `example.env` file to `.env` and paste the NYTimes API key in the field provided
 
-- build the react app in the client directory using `npm run build`
+- Install dependencies in each of the root and client directories using `npm install`
 
-- start the server using `npm start`
+- Build the react app in the client directory using `npm run build`
 
-- go to localhost:3333 in your browser to use the app
+- Start the server from the root directory using `npm start`
+
+- Go to `localhost:3333` in your browser to use the app
