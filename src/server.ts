@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
@@ -9,6 +10,7 @@ import { fetchBookmarkObjects, handleBookmark } from './helpers/bookmarks';
 const app = express();
 const port = 3333;
 
+app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/build')));
