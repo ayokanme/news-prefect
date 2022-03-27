@@ -12,6 +12,7 @@ mongoose.connect('mongodb://127.0.0.1/news-prefect')
   });
 
 
+// define Multimedia schema, nested in User document schema
 const multimediaSchema = new mongoose.Schema<ArticleMedia>({
   url: { type: String, required: true },
   format: { type: String, required: true },
@@ -21,6 +22,7 @@ const multimediaSchema = new mongoose.Schema<ArticleMedia>({
   caption: { type: String, required: true },
 });
 
+// define Bookmark schema, nested in User document schema
 const bookmarkSchema = new mongoose.Schema<ArticleObject>({
   section: { type: String, required: true },
   title: { type: String, required: true },
@@ -34,12 +36,13 @@ const bookmarkSchema = new mongoose.Schema<ArticleObject>({
   isBookmarked: { type: Boolean, required: true }
 });
 
+// define User document schema
 const userSchema = new mongoose.Schema<UserType>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   bookmarks: { type: [ String ], required: false },
-  sessionId: { type: String },
+  sessionId: { type: [ String ] },
   bookmarkObjects: { type: [ bookmarkSchema ], required: false }
 });
 
