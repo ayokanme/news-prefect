@@ -10,7 +10,7 @@ const apiErrorHandler = (error: AxiosError, res: Response) => {
 
 const dbErrorHandler = (error: MongooseError, res: Response) => {
   console.error(error);
-  res.status(500).end();
+  res.status(500).send('server error');
 };
 
 export { apiErrorHandler, dbErrorHandler };

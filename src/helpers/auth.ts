@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { User } from '../db';
+import { dbErrorHandler } from './errorHandlers';
 
 
 const signup = (req: Request, res: Response) => {
@@ -44,10 +45,8 @@ const signup = (req: Request, res: Response) => {
       }
 
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
+    .catch((err) => dbErrorHandler(err, res));
+
 };
 
 const login = (req: Request, res: Response) => {
@@ -91,10 +90,8 @@ const login = (req: Request, res: Response) => {
       }
 
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
+    .catch((err) => dbErrorHandler(err, res));
+
 };
 
 const logout = (req: Request, res: Response) => {
@@ -105,10 +102,8 @@ const logout = (req: Request, res: Response) => {
     .then(() => {
       res.clearCookie('newsPrefect').redirect('/');
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
+    .catch((err) => dbErrorHandler(err, res));
+
 };
 
 const deleteAccount = (req: Request, res: Response) => {
@@ -147,10 +142,7 @@ const deleteAccount = (req: Request, res: Response) => {
       }
 
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: 'server error' });
-    });
+    .catch((err) => dbErrorHandler(err, res));
 };
 
 export { signup, login, logout, deleteAccount };
