@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
 import { getBookmarkUris } from './bookmarks';
 import { ArticleObject } from '../../client/src/interfaces';
-import { serverErrorHandler } from './serverErrorHandler';
+import { apiErrorHandler } from './errorHandlers';
 
 dotenv.config();
 
@@ -49,7 +49,7 @@ const getTopStories = (req: Request, res: Response) => {
 
       res.status(200).json(parsed);
     })
-    .catch((error) => serverErrorHandler(error, res));
+    .catch((error) => apiErrorHandler(error, res));
 
 };
 
@@ -59,7 +59,7 @@ const getNewswireSectionList = (req: Request, res: Response) => {
     .then((response) => {
       res.status(200).json(response.data.results);
     })
-    .catch((error) => serverErrorHandler(error, res));
+    .catch((error) => apiErrorHandler(error, res));
 };
 
 const getNewswireSectionArticles = (req: Request, res: Response) => {
@@ -82,7 +82,7 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
 
       res.status(200).json(parsed);
     })
-    .catch((error) => serverErrorHandler(error, res));
+    .catch((error) => apiErrorHandler(error, res));
 };
 
 export { getTopStories, getNewswireSectionList, getNewswireSectionArticles };

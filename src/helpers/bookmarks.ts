@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { User } from '../db';
+import { dbErrorHandler } from './errorHandlers';
 
+// add condition to log user out AFTER implementing multiple session capabilities
 
 const getBookmarkUris = (sessionId: string) => {
 
@@ -14,16 +16,14 @@ const getBookmarkUris = (sessionId: string) => {
       }
 
     })
-    .catch((err) => {
-      console.error(err);
-    });
-
+    .catch((err) => console.error(err));
 };
 
 const handleBookmark = (req: Request, res: Response) => {
   const sessionId = req.cookies.newsPrefect;
   const { isBookmarked, uri, bookmarkObject } = req.body;
 
+  // if the uri received is currently bookmarked, unbookmark it... and vice versa
   if (isBookmarked) {
 
     User.findOneAndUpdate({ 'sessionId': sessionId },
@@ -34,13 +34,8 @@ const handleBookmark = (req: Request, res: Response) => {
           res.status(201).end();
         }
       })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).end();
-      });
-
+      .catch((err) => dbErrorHandler(err, res));
   } else {
-
     User.findOneAndUpdate({ 'sessionId': sessionId },
       { $push: { 'bookmarks': uri, 'bookmarkObjects': bookmarkObject }}
     )
@@ -49,13 +44,8 @@ const handleBookmark = (req: Request, res: Response) => {
           res.status(201).end();
         }
       })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).end();
-      });
-
+      .catch((err) => dbErrorHandler(err, res));
   }
-
 };
 
 const fetchBookmarkObjects = (req: Request, res: Response) => {
@@ -67,11 +57,7 @@ const fetchBookmarkObjects = (req: Request, res: Response) => {
         res.status(200).json(user.bookmarkObjects);
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).end();
-    });
-
+    .catch((err) => dbErrorHandler(err, res));
 };
 
 export { getBookmarkUris, handleBookmark, fetchBookmarkObjects };
