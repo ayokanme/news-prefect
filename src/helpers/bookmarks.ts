@@ -35,7 +35,9 @@ const handleBookmark = (req: Request, res: Response) => {
         }
       })
       .catch((err) => dbErrorHandler(err, res));
+
   } else {
+
     User.findOneAndUpdate({ 'sessionId': sessionId },
       { $push: { 'bookmarks': uri, 'bookmarkObjects': bookmarkObject }}
     )
