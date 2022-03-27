@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
 import { getBookmarkUris } from './bookmarks';
 import { ArticleObject } from '../../client/src/interfaces';
+import { serverErrorHandler } from './serverErrorHandler';
 
 dotenv.config();
 
@@ -34,26 +35,21 @@ const getTopStories = (req: Request, res: Response) => {
   return axios.get(`${options.topStoriesBaseUrl}/${topic}.json`, requestConfig)
     .then(async (response) => {
 
+      // get user's existing bookmark uris for comparison with newly fetched articles
       const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
-
       const parsed = await response.data.results.map((article: ArticleObject) => {
 
+        // assign correct bookmark status to newly fetched articles
         if (bookmarks?.includes(article.uri)) {
           return {...article, isBookmarked: true };
         } else {
           return {...article, isBookmarked: false };
         }
-
       });
 
       res.status(200).json(parsed);
     })
-    .catch((error) => {
-      console.error(error.message);
-      console.error(error.response.data);
-
-      res.status(500).json('server error');
-    });
+    .catch((error) => serverErrorHandler(error, res));
 
 };
 
@@ -63,13 +59,7 @@ const getNewswireSectionList = (req: Request, res: Response) => {
     .then((response) => {
       res.status(200).json(response.data.results);
     })
-    .catch((error) => {
-      console.error(error.message);
-      console.error(error.response.data);
-
-      res.status(500).json('server error');
-    });
-
+    .catch((error) => serverErrorHandler(error, res));
 };
 
 const getNewswireSectionArticles = (req: Request, res: Response) => {
@@ -78,27 +68,21 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
   return axios.get(`${options.newswireBaseUrl}/all/${section}.json`, newswireRequestConfig)
     .then(async (response) => {
 
+      // get user's existing bookmark uris for comparison with newly fetched articles
       const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
-
       const parsed = await response.data.results.map((article: ArticleObject) => {
 
+        // assign correct bookmark status to newly fetched articles
         if (bookmarks?.includes(article.uri)) {
           return {...article, isBookmarked: true };
         } else {
           return {...article, isBookmarked: false };
         }
-
       });
 
       res.status(200).json(parsed);
     })
-    .catch((error) => {
-      console.error(error.message);
-      console.error(error.response.data);
-
-      res.status(500).json('server error');
-    });
-
+    .catch((error) => serverErrorHandler(error, res));
 };
 
 export { getTopStories, getNewswireSectionList, getNewswireSectionArticles };
