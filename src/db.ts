@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema<UserType>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   bookmarks: { type: [ String ], required: false },
-  sessionId: { type: String },
+  sessionId: { type: [ String ] },
   bookmarkObjects: { type: [ bookmarkSchema ], required: false }
 });
 

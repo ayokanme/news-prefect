@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { User } from '../db';
 import { dbErrorHandler } from './errorHandlers';
 
-// add condition to log user out AFTER implementing multiple session capabilities
 
 const getBookmarkUris = (sessionId: string, res: Response) => {
 
