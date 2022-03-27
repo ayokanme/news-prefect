@@ -36,7 +36,7 @@ const getTopStories = (req: Request, res: Response) => {
     .then(async (response) => {
 
       // get user's existing bookmark uris for comparison with newly fetched articles
-      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
+      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect, res);
       const parsed = await response.data.results.map((article: ArticleObject) => {
 
         // assign correct bookmark status to newly fetched articles
@@ -69,7 +69,7 @@ const getNewswireSectionArticles = (req: Request, res: Response) => {
     .then(async (response) => {
 
       // get user's existing bookmark uris for comparison with newly fetched articles
-      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect);
+      const bookmarks = await getBookmarkUris(req.cookies.newsPrefect, res);
       const parsed = await response.data.results.map((article: ArticleObject) => {
 
         // assign correct bookmark status to newly fetched articles

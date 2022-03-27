@@ -4,7 +4,7 @@ import { dbErrorHandler } from './errorHandlers';
 
 // add condition to log user out AFTER implementing multiple session capabilities
 
-const getBookmarkUris = (sessionId: string) => {
+const getBookmarkUris = (sessionId: string, res: Response) => {
 
   return User.findOne({ 'sessionId': sessionId })
     .then((user) => {
@@ -16,7 +16,7 @@ const getBookmarkUris = (sessionId: string) => {
       }
 
     })
-    .catch((err) => console.error(err));
+    .catch((err) => dbErrorHandler(err, res));
 };
 
 const handleBookmark = (req: Request, res: Response) => {
